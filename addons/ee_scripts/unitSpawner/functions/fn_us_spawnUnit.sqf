@@ -5,6 +5,7 @@ _curUnits = _logic getVariable ["CurUnits",[]];
 
 _unitName createUnit [ position _box, group _caller,"EE_Scripts_newUnit = this"];
 _unit = EE_Scripts_newUnit;
+_unit setVariable ["ALIVE_profileIgnore", true];
 _box setVariable ["CurCount", _curCount - 1, true];
 _logic setVariable ["CurUnits", _curUnits + [_unit], true];
 
