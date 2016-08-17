@@ -72,6 +72,7 @@ if (isNil{_vehicleName}) then {
 		};
 
 		_vehicle = _vehicleName createVehicle _position;
+		_vehicle setVariable ["ALIVE_profileIgnore", true];
 		_logic setVariable ["Vehicle", _vehicle, true];
 		clearMagazineCargoGlobal _vehicle;
 		clearItemCargoGlobal _vehicle;
