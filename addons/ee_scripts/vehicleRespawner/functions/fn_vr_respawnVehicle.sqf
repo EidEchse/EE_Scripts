@@ -32,7 +32,7 @@ if (!isNull _vehicle) then {
   clearBackpackCargoGlobal _vehicle;
 
   if (_init != "") then {
-    [_logic,_vehicle, _vehicleName] execVM (_init);
+    [_logic,_vehicle, _vehicleName] execVM _init;
   };
 
   if (EE_Scripts_vr_debug) then {systemChat "DEBUG: vehicleRespawner: Vehicle %1 init called"};

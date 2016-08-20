@@ -53,7 +53,7 @@ while {true} do
           if (!_found) then {
             _name = _cfgItem select 0;
             _count = _cfgItem select 1;
-            /*systemChat format ["ReloadingAmmobox: Adding item: %1 x %2...",_count , _name];*/
+            systemChat format ["ReloadingAmmobox: Adding item: %1 x %2...",_count , _name];
             sleep _time;
             _box addItemCargoGlobal [_name, _count];
           };
@@ -85,7 +85,7 @@ while {true} do
           if (!_found) then {
             _name = _cfgMagazin select 0;
             _count = _cfgMagazin select 1;
-            /*systemChat format ["ReloadingAmmobox: Adding magazine: %1 x %2...",_count , _name];*/
+            systemChat format ["ReloadingAmmobox: Adding magazine: %1 x %2...",_count , _name];
             sleep _time;
             _box addItemCargoGlobal [_name, _count];
           };
