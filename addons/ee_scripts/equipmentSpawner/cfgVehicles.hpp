@@ -35,7 +35,7 @@ class equipmentSpawner: Module_F
 			typeName = "STRING"; // Value type, can be "NUMBER", "STRING" or "BOOL"
 			class values
 			{
-				class EE_Scripts_item	{name = "Item";	value = "item"; default = "weapon";}; // Listbox item
+				class EE_Scripts_item	{name = "Item";	value = "item"; default = 1;}; // Listbox item
 				class EE_Scripts_weapon	{name = "Weapon"; value = "weapon";};
 				class EE_Scripts_backpack	{name = "Backpack"; value = "backpack";};
 			};

@@ -73,14 +73,14 @@ if (isNil{_vehicleName}) then {
 		_dir = _logic getVariable ["HomeDir", getDir _logic];
 		_vehicle = _vehicleName createVehicle _position;
 		_vehicle setDir _dir;
-		
+
 		_vehicle setVariable ["ALIVE_profileIgnore", true];
 		_logic setVariable ["Vehicle", _vehicle, true];
 		clearMagazineCargoGlobal _vehicle;
 		clearItemCargoGlobal _vehicle;
 		clearWeaponCargoGlobal _vehicle;
 		clearBackpackCargoGlobal _vehicle;
-		_vehicle addAction ["Set Home", '(_this select 3) setVariable ["Home", (position (_this select 0));(_this select 3) setVariable ["HomeDir", (getDir (_this select 0)), true];', _logic, 1.5, false];
+		_vehicle addAction ["Set Home", '(_this select 3) setVariable ["Home", (position (_this select 0)), true];(_this select 3) setVariable ["HomeDir", (getDir (_this select 0)), true];', _logic, 1.5, false];
 		if (EE_Scripts_vs_debug) then {
 			_vehicle addAction ["SpawnVehicle", "[_this select 3] call EE_Scripts_fnc_vs_spawnVehicle;", _logic, 1.5, false];
 		};
