@@ -60,6 +60,10 @@ if (_activated) then {
   clearWeaponCargoGlobal _box;
   clearBackpackCargoGlobal _box;
 
+	if (_init != "") then {
+		[_logic,_vehicle, _vehicleName] execVM _init;
+	};
+
  	[_logic] spawn EE_Scripts_fnc_ra_reloadAmmobox;
 };
 
