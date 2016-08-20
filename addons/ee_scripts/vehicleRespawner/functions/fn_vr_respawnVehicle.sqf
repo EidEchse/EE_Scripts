@@ -18,7 +18,9 @@ if (!isNil {_vehicle}) then {
 };
 
 _position = _logic getVariable ["Home", position _logic];
+_dir = _logic getVariable ["HomeDir", getDir _logic];
 _vehicle = _vehicleName createVehicle _position;
+_vehicle setDir _dir;
 _return = true;
 if (!isNull _vehicle) then {
   systemChat format["Vehicle Respawner: Vehicle %1 respawned", _vehicleName];
@@ -35,7 +37,7 @@ if (!isNull _vehicle) then {
 
   if (EE_Scripts_vr_debug) then {systemChat "DEBUG: vehicleRespawner: Vehicle %1 init called"};
 
-  _vehicle addAction ["Set Home", '(_this select 3) setVariable ["Home", (position (_this select 0)), true];', _logic, 1.5, false];
+  _vehicle addAction ["Set Home", '(_this select 3) setVariable ["Home", (position (_this select 0));(_this select 3) setVariable ["HomeDir", (getDir (_this select 0)), true];', _logic, 1.5, false];
   if (EE_Scripts_vr_debug) then {
     _vehicle addAction ["DEBUG: SpawnVehicle", "[_this select 3] call EE_Scripts_fnc_vr_respawnVehicle;", _logic, 1.5, false];
   };
