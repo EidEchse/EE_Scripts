@@ -1,2 +1,3 @@
 class reloadingAmmobox {
+  debug = true;
 };

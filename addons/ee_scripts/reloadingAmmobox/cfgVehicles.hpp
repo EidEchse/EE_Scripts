@@ -46,19 +46,19 @@ class reloadingAmmobox: Module_F
 			description = 'Magazines of the box ([["Class1",count1],["Class2",2]])'; // Tooltip description
 			typeName = "STRING"; // Value type, can be "NUMBER", "STRING" or "BOOL"
 		};
-		class reloading
+		class Reloading
 		{
 			displayName = "Reloading Classes"; // Argument label
 			description = "Object classes who can reload the box"; // Tooltip description
 			typeName = "STRING"; // Value type, can be "NUMBER", "STRING" or "BOOL"
 		};
-		class distance
+		class Distance
 		{
 			displayName = "Reloading distance"; // Argument label
 			description = "Distance to the next object class that can reload the box (min 2m)"; // Tooltip description
 			typeName = "NUMBER"; // Value type, can be "NUMBER", "STRING" or "BOOL"
 		};
-		class time
+		class Rime
 		{
 			displayName = "Time for reloading"; // Argument label
 			description = "The time it takes to reload one item class of the box in seconds"; // Tooltip description

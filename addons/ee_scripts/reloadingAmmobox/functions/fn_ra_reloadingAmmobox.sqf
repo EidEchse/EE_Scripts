@@ -36,10 +36,10 @@ _logic setVariable ["Distance", _distance, true];
 _time = _logic getVariable ["Time", 0];
 _logic setVariable ["Time", _time, true];
 
-_items = _logic getVariable ["Items", [[]]];
+_items = _logic getVariable ["Items", ""];
 _logic setVariable ["Items", _items, true];
 
-_magazines = _logic getVariable ["Magazines", [[]]];
+_magazines = _logic getVariable ["Magazines", ""];
 _logic setVariable ["Magazines", _magazines, true];
 
 
@@ -49,10 +49,10 @@ if (_activated) then {
 	private ["_box"];
   _box = _logic getVariable "Box";
   if (isNil {_box}) then {
-      _box = "Box_NATO_AmmoVeh_F" createVehicle position _logic;
+      _box = "Box_NATO_Ammo_F" createVehicle position _logic;
   };
   _logic setVariable ["Box", _box, true];
-  _box allowDamage false;
+  _box allowDammage false;
   _box setDir getDir _logic;
   _box setPos getPos _logic;
   clearMagazineCargoGlobal _box;
@@ -60,6 +60,7 @@ if (_activated) then {
   clearWeaponCargoGlobal _box;
   clearBackpackCargoGlobal _box;
 
- 	[_logic] spawn EE_Scripts_fnc_ra_watchForReload;
+ 	[_logic] spawn EE_Scripts_fnc_ra_reloadAmmobox;
 };
+
 true
