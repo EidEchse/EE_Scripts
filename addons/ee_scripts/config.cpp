@@ -2,7 +2,7 @@ class CfgPatches
 {
 	class EE_Scripts
 	{
-		units[] = {"equipmentSpawner","vehicleSpawner","unitSpawner"};
+		units[] = {"equipmentSpawner","vehicleSpawner","unitSpawner";"vehicleRespawner","reloadingAmmobox"};
 		requiredVersion = 1.0;
 		requiredAddons[] = {"A3_Modules_F"};
 	};
