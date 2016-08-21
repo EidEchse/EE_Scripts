@@ -41,7 +41,8 @@ if (_activated) then {
   [_box,EE_Scripts_sa_magzines,true] call BIS_fnc_addVirtualMagazineCargo;
   [_box,EE_Scripts_sa_items,true] call BIS_fnc_addVirtualItemCargo;
 
-	_box addAction ["Load content to Arsenal", "[_this select 0, _this select 1] call EE_Scripts_fnc_sa_loadEquipment",[],1.7,false,false];
+	/*_box addAction ["Load content to Arsenal", {[_this select 0, _this select 1] call EE_Scripts_fnc_sa_loadEquipment},[],1.7,false,false];*/
+	[_box, ["Load content to Arsenal", {[_this select 0, _this select 1] call EE_Scripts_fnc_sa_loadEquipment},[],1.7,false,false]] remoteExec ["addAction", -2, _box];
   [_box] call EE_Scripts_fnc_sa_loadEquipment;
 };
 

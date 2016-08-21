@@ -35,7 +35,8 @@ if (_activated) then {
  [_logic] call EE_Scripts_fnc_es_fillBox;
  if (EE_Scripts_es_debug) then {
 	 _box = _logic getVariable "Box";
-	 _box addAction ["FillBox", " [_this select 3] call EE_Scripts_fnc_es_fillBox;", _logic];
+	 /*_box addAction ["FillBox", "[_this select 3] call EE_Scripts_fnc_es_fillBox;", _logic];*/
+	 [_box, ["FillBox", {[_this select 3] call EE_Scripts_fnc_es_fillBox;}, _logic]] remoteExec ["addAction", -2, _box];
  };
 };
 
