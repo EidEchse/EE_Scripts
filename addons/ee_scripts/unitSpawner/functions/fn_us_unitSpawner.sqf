@@ -29,7 +29,7 @@ if (_activated) then {
   private ["_box"];
   _box = _logic getVariable "Box";
   if (isNil {_box}) then {
-      _box = "Box_NATO_AmmoVeh_F" createVehicle position _logic;
+      _box = "CargoNet_01_box_F" createVehicle position _logic;
   };
   _logic setVariable ["Box", _box, true];
   _box allowDamage false;

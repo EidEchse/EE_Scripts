@@ -7,4 +7,5 @@ class equipmentSpawner
 	class es_selectEquipment{};
 	class es_fillBox{};
 	class es_clearBlacklist{};
+	class es_selectiveArsenalNear{};
 };

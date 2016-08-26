@@ -1,10 +1,10 @@
 params ["_pool", "_type"];
 
-if (EE_Scripts_es_debug) then {systemChat format["Clear pool from blacklist: %1", count _pool]};
+if (EE_Scripts_es_debug) then {systemChat format["DEBUG: equipmentSpawner: Clear pool from blacklist: %1", count _pool]};
 {
   _group_array = _x;
   {
-    if (EE_Scripts_es_debug) then {systemChat format["Remove from blacklist: %1", _x]};
+    if (EE_Scripts_es_debug) then {systemChat format["DEBUG: equipmentSpawner: Remove from blacklist: %1", _x]};
     switch (_type) do {
       case "item": {
           EE_Scripts_Scripts_es_blacklist_item = EE_Scripts_es_blacklist_item - [_x];
