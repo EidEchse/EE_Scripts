@@ -1,5 +1,5 @@
 class reloadingAmmobox {
-  debug = 0;
+  debug = 3;
   items[] =
   {
     {"MiniGrenade",5}
