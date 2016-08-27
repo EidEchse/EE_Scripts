@@ -20,6 +20,7 @@ while {true} do
         _alive = true;
       };
     } forEach _boxes;
+    
     if (_alive) then
     {
       [1, "reloadingAmmobox", "AmmoboxNear"] call EE_Scripts_fnc_debug;
