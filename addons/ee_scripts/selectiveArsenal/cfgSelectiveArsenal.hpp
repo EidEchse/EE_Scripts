@@ -138,6 +138,14 @@ class selectiveArsenal {
     "ToolKit",
     "ACE_tourniquet",
     "ACE_UAVBattery",
-    "ACE_wirecutter",
+    "ACE_wirecutter"
+  };
+  weapons[] =
+  {
+
+  };
+  backpacks[] =
+  {
+
   };
 };

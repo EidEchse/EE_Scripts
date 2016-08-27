@@ -45,7 +45,7 @@ class unitSpawner: Module_F
 		class Respawn
 		{
 			displayName = "Respawn"; // Argument label
-			description = "Respawn time per unit in seconds"; // Tooltip description
+			description = "Respawn time per unit in minutes"; // Tooltip description
 			typeName = "NUMBER"; // Value type, can be "NUMBER", "STRING" or "BOOL"
 			class values
 			{

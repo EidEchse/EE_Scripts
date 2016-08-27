@@ -14,6 +14,7 @@ if (!isNil {_vehicle}) then {
     systemChat format["Vehicle Respawner: Vehicle %1 respawns in %2 minutes", _vehicleName , _respawnIn];
     _respawnIn = _respawnIn - 1;
     sleep 60;
+    waitUntil {count (allPlayers - entities "HeadlessClient_F")};
   };
 };
 

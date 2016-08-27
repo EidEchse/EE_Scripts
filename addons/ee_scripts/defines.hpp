@@ -26,6 +26,7 @@ class CfgFunctions
 	class EE_Scripts
 	{
     tag = "EE_Scripts";
+    #include "main\cfgFunctions.hpp"
     #include "equipmentSpawner\cfgFunctions.hpp"
     #include "vehicleSpawner\cfgFunctions.hpp"
     #include "unitSpawner\cfgFunctions.hpp"

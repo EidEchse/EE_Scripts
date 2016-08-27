@@ -9,11 +9,10 @@ if (!_deleteUnits) then {
   _i = floor _respawn;
   while{_i > 0} do
   {
-    if ((_i mod 300) == 0) then{
-      systemChat format["Next unit respawn available in %2 minutes.",_i / 60];
-    };
+      systemChat format["Next unit respawn available in %2 minutes.",_i];
     _i = _i - 1;
-    sleep 1;
+    sleep 60;
+    waitUntil {count (allPlayers - entities "HeadlessClient_F")};
   };
   _curCount = _box getVariable "CurCount";
   _box setVariable ["CurCount", _curCount + 1, true];
