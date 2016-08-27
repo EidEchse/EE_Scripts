@@ -1,3 +1,3 @@
 class unitSpawner {
-  debug = 0;
+  debug = 3;
 };

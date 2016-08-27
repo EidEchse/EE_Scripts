@@ -4,7 +4,7 @@ class CfgPatches
 	{
 		units[] = {"equipmentSpawner","vehicleSpawner","unitSpawner";"vehicleRespawner","reloadingAmmobox"};
 		requiredVersion = 1.0;
-		requiredAddons[] = {"A3_Modules_F"};
+		requiredAddons[] = {"A3_Modules_F","CBA_main"};
 	};
 };
 

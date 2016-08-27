@@ -14,6 +14,7 @@ if (!isNil {_vehicle}) then {
     systemChat format["Vehicle Respawner: Vehicle %1 respawns in %2 minutes", _vehicleName , _respawnIn];
     _respawnIn = _respawnIn - 1;
     sleep 60;
+    waitUntil {count (allPlayers - entities "HeadlessClient_F") > 0};
   };
 };
 
@@ -37,12 +38,15 @@ if (!isNull _vehicle) then {
 
   if (EE_Scripts_vr_debug) then {systemChat "DEBUG: vehicleRespawner: Vehicle %1 init called"};
 
-  _vehicle addAction ["Set Home", '(_this select 3) setVariable ["Home", (position (_this select 0)), true];(_this select 3) setVariable ["HomeDir", (getDir (_this select 0)), true];', _logic, 1.5, false];
+  /*_vehicle addAction ["Set Home", '(_this select 3) setVariable ["Home", (position (_this select 0)), true];(_this select 3) setVariable ["HomeDir", (getDir (_this select 0)), true];', _logic, 1.5, false];*/
+  [_vehicle, ["Set Home", {(_this select 3) setVariable ["Home", (position (_this select 0)), true];(_this select 3) setVariable ["HomeDir", (getDir (_this select 0)), true];}, _logic, 1.5, false]] remoteExec ["addAction", -2, _vehicle];
+
   if (EE_Scripts_vr_debug) then {
-    _vehicle addAction ["DEBUG: SpawnVehicle", "[_this select 3] call EE_Scripts_fnc_vr_respawnVehicle;", _logic, 1.5, false];
+    /*_vehicle addAction ["DEBUG: SpawnVehicle", "[_this select 3] call EE_Scripts_fnc_vr_respawnVehicle;", _logic, 1.5, false];*/
+    [_vehicle, ["DEBUG: SpawnVehicle", {[_this select 3] call EE_Scripts_fnc_vr_respawnVehicle;}, _logic, 1.5, false]] remoteExec ["addAction", -2, _vehicle];
   };
 
-  [_logic, _vehicle] call EE_Scripts_fnc_vs_toggleLock;
+  /*[_logic, _vehicle] call EE_Scripts_fnc_vs_toggleLock;*/
   _vehicle lock 2;
   [_logic] spawn EE_Scripts_fnc_vr_respawnVehicle;
 }else{

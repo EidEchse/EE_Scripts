@@ -5,31 +5,12 @@ _units = param [1,[],[[]]];
 // True when the module was activated, false when it's deactivated (i.e., synced triggers are no longer active)
 _activated = param [2,true,[true]];
 
-if ( isNil {EE_Scripts_ra_debug}) then {
-		EE_Scripts_ra_debug = getNumber ( configfile >> "EE_Scripts" >> "reloadingAmmobox" >> "debug");
-		if (EE_Scripts_ra_debug == 0) then {
-			EE_Scripts_ra_debug = false;
-		}else{
-			EE_Scripts_ra_debug = true;
-		};
-};
-
-if ( isNil {EE_Scripts_ra_items}) then {
-		EE_Scripts_ra_items = getNumber ( configfile >> "EE_Scripts" >> "reloadingAmmobox" >> "items");
-};
-if ( isNil {EE_Scripts_ra_magzines}) then {
-		EE_Scripts_ra_magzines = getNumber ( configfile >> "EE_Scripts" >> "reloadingAmmobox" >> "magazines");
-};
-
-_init = _logic getVariable ["Init", ""];
-_logic setVariable ["Init", _init, true];
-
 _reloading = _logic getVariable ["Reloading", ""];
 _logic setVariable ["Reloading", _reloading, true];
 
 _distance = _logic getVariable ["Distance", 2];
 if (_distance < 2) then {
-	systemChat "WARNING: reloadingAmmobox: Distance under 2m set to 2m";
+	[2, "reloadingAmmobox", "Distance under 2m set to 2m"] call EE_Scripts_fnc_debug;
 };
 _logic setVariable ["Distance", _distance, true];
 
@@ -37,32 +18,30 @@ _time = _logic getVariable ["Time", 0];
 _logic setVariable ["Time", _time, true];
 
 _items = _logic getVariable ["Items", ""];
+if ( _Items == "") then {
+	_Items = getArray ( configfile >> "EE_Scripts" >> "reloadingAmmobox" >> "items");
+}else{
+	[1, "reloadingAmmobox", "Loading items from config"] call EE_Scripts_fnc_debug;
+	_items = compile (_logic getVariable "Items");
+	_items = [] call _items;
+};
 _logic setVariable ["Items", _items, true];
 
 _magazines = _logic getVariable ["Magazines", ""];
+if ( _magazines == "") then {
+	_magazines = getArray ( configfile >> "EE_Scripts" >> "reloadingAmmobox" >> "magazines");
+}else{
+	[1, "reloadingAmmobox", "Loading magazines from config"] call EE_Scripts_fnc_debug;
+	_magazines = compile  (_logic getVariable "Magazines");
+	_magazines = [] call _magazines;
+};
 _logic setVariable ["Magazines", _magazines, true];
 
 
 if (_activated) then {
-	if (EE_Scripts_ra_debug) then {systemChat "DEBUG: reloadingAmmobox activated"};
+	[0, "reloadingAmmobox", "Activated"] call EE_Scripts_fnc_debug;
 
-	private ["_box"];
-  _box = _logic getVariable "Box";
-  if (isNil {_box}) then {
-      _box = "Box_NATO_Ammo_F" createVehicle position _logic;
-  };
-  _logic setVariable ["Box", _box, true];
-  _box allowDammage false;
-  _box setDir getDir _logic;
-  _box setPos getPos _logic;
-  clearMagazineCargoGlobal _box;
-  clearItemCargoGlobal _box;
-  clearWeaponCargoGlobal _box;
-  clearBackpackCargoGlobal _box;
-
-	if (_init != "") then {
-		[_logic,_vehicle, _vehicleName] execVM _init;
-	};
+	_box = ["unitSpawner", _logic, "Box_NATO_Ammo_F"] call EE_SCripts_fnc_spawnBox;
 
  	[_logic] spawn EE_Scripts_fnc_ra_reloadAmmobox;
 };

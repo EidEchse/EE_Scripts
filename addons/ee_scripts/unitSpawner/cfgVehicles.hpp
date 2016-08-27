@@ -45,18 +45,14 @@ class unitSpawner: Module_F
 		class Respawn
 		{
 			displayName = "Respawn"; // Argument label
-			description = "Respawn time per unit in seconds"; // Tooltip description
+			description = "Respawn time per unit in minutes"; // Tooltip description
 			typeName = "NUMBER"; // Value type, can be "NUMBER", "STRING" or "BOOL"
-			class values
-			{
-				class EE_Scripts_respawn60	{name = "60";	value = 60; default = 1;}; // Listbox item
-				class EE_Scripts_respawn240	{name = "240"; value = 240;};
-				class EE_Scripts_respawn300	{name = "300"; value = 200;};
-				class EE_Scripts_respawn600	{name = "600"; value = 600;};
-				class EE_Scripts_respawn1200	{name = "1200"; value = 1200;};
-				class EE_Scripts_respawn1800	{name = "1800"; value = 1800;};
-				class EE_Scripts_respawn3600	{name = "3600"; value = 3600;};
-			};
+		};
+		class Skill
+		{
+			displayName = "Skill"; // Argument label
+			description = "Skill of the units"; // Tooltip description
+			typeName = "NUMBER"; // Value type, can be "NUMBER", "STRING" or "BOOL"
 		};
 	};
 
