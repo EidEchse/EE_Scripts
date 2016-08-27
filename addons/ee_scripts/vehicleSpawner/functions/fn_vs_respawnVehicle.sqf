@@ -74,7 +74,7 @@ if (!isNil{_vehicle}) then {
 	  };
 	  _i = _i - 1;
 	  sleep 1;
-		waitUntil {count (allPlayers - entities "HeadlessClient_F")};
+		waitUntil {count (allPlayers - entities "HeadlessClient_F") > 0};
 	};
 	[_logic] spawn EE_Scripts_fnc_vs_spawnVehicle;
 };
