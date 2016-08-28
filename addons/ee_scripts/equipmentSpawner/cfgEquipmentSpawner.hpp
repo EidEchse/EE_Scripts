@@ -1,5 +1,5 @@
 class equipmentSpawner {
-  debug = 0;
+  debug = 3;
   weapon[] =
   {
     {}, //Level 0

@@ -13,10 +13,10 @@ if (!isNil {_objects}) then
         if (count _list > 0) then
         {
           {
-            if (EE_Scripts_sa_debug) then {systemChat format["Add Backpack: %1", _list select 0]};
+            [0, "selectiveArsenal", format["Add backpack: %1", _list select 0], EE_Scripts_sa_debug] call EE_Scripts_fnc_debug;
             [_arsenal, _x, true] call BIS_fnc_addVirtualBackpackCargo;
             _cfg = (configfile >> "CfgWeapons" >> _x);
-            if (EE_Scripts_sa_debug) then {systemChat format ["DEBUG: selectiveArsenal: class %1 config %2",_x, _cfg]};
+            [0, "selectiveArsenal", format ["Class %1 config %2",_x, _cfg], EE_Scripts_sa_debug] call EE_Scripts_fnc_debug;
             _displayName = getText (_cfg >> "displayName");
             _image = getText (_cfg >> "picture");
 
@@ -34,10 +34,10 @@ if (!isNil {_objects}) then
         if (count _list > 0) then
         {
           {
-            if (EE_Scripts_sa_debug) then {systemChat format["Add Item: %1", _list select 0]};
+            [0, "selectiveArsenal", format["Add item: %1", _list select 0], EE_Scripts_sa_debug] call EE_Scripts_fnc_debug;
             [_arsenal, _x, true] call BIS_fnc_addVirtualItemCargo;
             _cfg = (configfile >> "CfgWeapons" >> _x);
-            if (EE_Scripts_sa_debug) then {systemChat format ["DEBUG: selectiveArsenal: class %1 config %2",_x, _cfg]};
+            [0, "selectiveArsenal", format ["Class %1 config %2",_x, _cfg], EE_Scripts_sa_debug] call EE_Scripts_fnc_debug;
             _displayName = getText (_cfg >> "displayName");
             _image = getText (_cfg >> "picture");
 
@@ -55,10 +55,10 @@ if (!isNil {_objects}) then
         if (count _list > 0) then
         {
           {
-            if (EE_Scripts_sa_debug) then {systemChat format["Add Weapon: %1", _list select 0]};
+            [0, "selectiveArsenal", format["Add weapon: %1", _list select 0], EE_Scripts_sa_debug] call EE_Scripts_fnc_debug;
             [_arsenal, _x, true] call BIS_fnc_addVirtualWeaponCargo;
             _cfg = (configfile >> "CfgWeapons" >> _x);
-            if (EE_Scripts_sa_debug) then {systemChat format ["DEBUG: selectiveArsenal: class %1 config %2",_x, _cfg]};
+            [0, "selectiveArsenal", format ["Class %1 config %2",_x, _cfg], EE_Scripts_sa_debug] call EE_Scripts_fnc_debug;
             _displayName = getText (_cfg >> "displayName");
             _image = getText (_cfg >> "picture");
 

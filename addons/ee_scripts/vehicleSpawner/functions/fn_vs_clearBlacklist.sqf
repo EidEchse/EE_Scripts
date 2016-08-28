@@ -1,9 +1,9 @@
 params ["_pool", "_type"];
 
-if (EE_Scripts_vs_debug) then {systemChat format["Clear pool from blacklist: %1", count _pool]};
+[1, "vehicleSpawner", format["Clear pool from blacklist: %1", count _pool], EE_Scripts_vs_debug] call EE_Scripts_fnc_debug;
 {
   switch (_type) do {
-    if (EE_Scripts_vs_debug) then {systemChat format["Remove from blacklist: %1", _x]};
+    [0, "vehicleSpawner", format["Remove from blacklist: %1", _x], EE_Scripts_vs_debug] call EE_Scripts_fnc_debug;
     case "aa": {
       EE_Scripts_vs_blacklist_aa = EE_Scripts_vs_blacklist_aa - [_x];
     };

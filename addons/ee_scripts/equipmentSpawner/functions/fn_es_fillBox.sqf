@@ -18,7 +18,7 @@ switch _type do
 	};
 };
 
-if (EE_Scripts_es_debug) then {systemChat format["DEBUG: equipmentSpawner: Cfg levels: %1", count _cfg]};
+[0, "equipmentSpawner", format["Cfg levels: %1", count _cfg], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
 
 //Calculate the minimum and maximum level vor the equipment selection
 private ["_max", "_min"];
@@ -41,8 +41,9 @@ if (_range == 0) then {
   };
 };
 
-if (EE_Scripts_es_debug) then {systemChat format["DEBUG: equipmentSpawner: Min level: %1",_min]};
-if (EE_Scripts_es_debug) then {systemChat format["DEBUG: equipmentSpawner: Max level: %1",_max]};
+
+[0, "equipmentSpawner", format["Min level: %1",_min], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
+[0, "equipmentSpawner", format["Max level: %1",_max], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
 
 _pool = [_min, _max, _type] call EE_Scripts_fnc_es_createPool;
 
@@ -51,12 +52,12 @@ _whitelist_weapon = [];
 _whitelist_backpack = [];
 if (count _pool > 0) then
 {
-	if (EE_Scripts_es_debug) then {systemChat format["DEBUG: equipmentSpawner: Pool size: %1",count _pool]};
+	[1, "equipmentSpawner", format["Pool size: %1",count _pool], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
 	_eqm = [_pool, _type] call EE_Scripts_fnc_es_selectEquipment;
 	if (!isNil {_eqm}) then
   {
 		{
-		  if (EE_Scripts_es_debug) then {systemChat format ["Selected equipment %1 type %2", _x, _type]};
+			[1, "equipmentSpawner", format ["Selected equipment %1 type %2", _x, _type], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
 		  switch _type do
       {
 		    case "item":

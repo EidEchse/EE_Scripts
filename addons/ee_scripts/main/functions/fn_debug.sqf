@@ -1,6 +1,9 @@
-params ["_level","_module","_message"];
+params ["_level","_module","_message","_debugLevel"];
 
-_debugLevel = getNumber ( configfile >> "EE_Scripts" >> _module >> "debug");
+if (isNil {_debugLevel}) then
+{
+  _debugLevel = getNumber ( configfile >> "EE_Scripts" >> _module >> "debug");
+};
 
 if (_debugLevel <= _level) then
 {

@@ -5,13 +5,9 @@ _units = param [1,[],[[]]];
 // True when the module was activated, false when it's deactivated (i.e., synced triggers are no longer active)
 _activated = param [2,true,[true]];
 
-if ( isNil {EE_Scripts_vs_debug}) then {
-		EE_Scripts_vs_debug = getNumber ( configfile >> "EE_Scripts" >> "vehicleSpawner" >> "debug");
-		if (EE_Scripts_vs_debug == 0) then {
-			EE_Scripts_vs_debug = false;
-		}else{
-			EE_Scripts_vs_debug = true;
-		};
+if (isNil {EE_Scripts_vs_debug}) then
+{
+	EE_Scripts_vs_debug = getNumber ( configfile >> "EE_Scripts" >> "vehicleSpawner" >> "debug");
 };
 
 //Select the equipment config for the equipment type
@@ -55,6 +51,7 @@ if ( isNil {EE_Scripts_vs_respawn_helicopter}) then {
 };
 
 if (_activated) then {
+	[0, "vehicleSpawner", "Activated"] call EE_Scripts_fnc_debug;
 	if ( isNil {EE_Scripts_vs_blacklist_aa}) then {	EE_Scripts_vs_blacklist_aa = [];};
 	if ( isNil {EE_Scripts_vs_blacklist_vehicle}) then {	EE_Scripts_vs_blacklist_vehicle = [];};
 	if ( isNil {EE_Scripts_vs_blacklist_artillary}) then {	EE_Scripts_vs_blacklist_artillary = [];};
@@ -62,8 +59,6 @@ if (_activated) then {
 	if ( isNil {EE_Scripts_vs_blacklist_boat}) then {	EE_Scripts_vs_blacklist_boat = [];};
 	if ( isNil {EE_Scripts_vs_blacklist_helicopter}) then {	EE_Scripts_vs_blacklist_helicopter = [];};
 
-	if (EE_Scripts_vs_debug) then {systemChat "init"};
-
- [_logic] call EE_Scripts_fnc_vs_spawnVehicle;
+ 	[_logic] call EE_Scripts_fnc_vs_spawnVehicle;
 };
 true

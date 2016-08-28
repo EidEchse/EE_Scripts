@@ -1,5 +1,5 @@
 class selectiveArsenal {
-  debug = 0;
+  debug = 3;
   magazines[] =
   {
     "100Rnd_65x39_caseless_mag",
@@ -138,11 +138,18 @@ class selectiveArsenal {
     "ToolKit",
     "ACE_tourniquet",
     "ACE_UAVBattery",
-    "ACE_wirecutter"
+    "ACE_wirecutter",
+    "ACE_key_west",
+    "MC_Camo",
+    "V_TacVest_khk",
+    "MC_Helmet2",
+    "ItemMap",
+    "ItemCompass",
+    "ItemWatch"
   };
   weapons[] =
   {
-
+    "arifle_MX_F"
   };
   backpacks[] =
   {
