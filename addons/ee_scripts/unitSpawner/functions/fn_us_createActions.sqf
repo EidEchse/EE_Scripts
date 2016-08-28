@@ -23,9 +23,9 @@ if (_nextRespawn == 0) then
 [_box, [format ["AVAILABLE: (%1/%2)", _curCount, _count], "", [], 1.6, false, false]] remoteExec ["addAction", 0, _box];
 
 _units = _units splitString " ,;";
-[0, "unitSpawner", format["Units that can be spawned: %1", _units]] call EE_Scripts_fnc_debug;
+[0, "unitSpawner", format["Units that can be spawned: %1", _units], EE_Scripts_us_debug] call EE_Scripts_fnc_debug;
 {
   _displayName = getText (configfile >> "CfgVehicles" >> _x >> "displayName");
-  [0, "unitSpawner", format["Add Action: %1", _displayName]] call EE_Scripts_fnc_debug;
+  [0, "unitSpawner", format["Add Action: %1", _displayName], EE_Scripts_us_debug] call EE_Scripts_fnc_debug;
   [_box, [format ["Spawn: %1", _displayName], {[_this select 3 select 0, _this select 3 select 1, _this select 1] call EE_Scripts_fnc_us_spawnUnit},[_logic, _x],1.4,false,false,"","[_target] call EE_Scripts_fnc_us_respawnsLeft"]] remoteExec ["addAction", 0, _box];
 } forEach _units;

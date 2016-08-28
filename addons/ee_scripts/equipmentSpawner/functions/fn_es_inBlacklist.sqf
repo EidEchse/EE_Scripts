@@ -23,10 +23,10 @@ scopeName "main";
   _blackEqm = _x;
   switch (_type) do
   {
-  if (EE_Scripts_es_debug) then {systemChat format["DEBUG: equipmentSpawner: Check: %1", _blackEqm]};
+    [0, "equipmentSpawner", format["Check: %1", _blackEqm], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
     if (_x == _blackEqm) then
     {
-    if (EE_Scripts_es_debug) then {systemChat format["DEBUG: equipmentSpawner: %1: %2 is in blacklist!", _type, _x]};
+      [0, "equipmentSpawner", format["%1: %2 is in blacklist!", _type, _x], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
 		  _return = true;
 			breakTo "main";
     };

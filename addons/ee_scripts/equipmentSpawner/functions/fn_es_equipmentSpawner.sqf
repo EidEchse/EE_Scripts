@@ -5,75 +5,76 @@ _units = param [1,[],[[]]];
 // True when the module was activated, false when it's deactivated (i.e., synced triggers are no longer active)
 _activated = param [2,true,[true]];
 
-if (_activated) then {
-	if ( isNil {EE_Scripts_es_debug}) then
-	{
-			EE_Scripts_es_debug = getNumber ( configfile >> "EE_Scripts" >> "equipmentSpawner" >> "debug");
-			if (EE_Scripts_es_debug == 0) then
-			{
-				EE_Scripts_es_debug = false;
-			}else{
-				EE_Scripts_es_debug = true;
-			};
-	};
-	if (EE_Scripts_es_debug) then {systemChat "DEBUG: equipmentSpawner init"};
+if (isNil {EE_Scripts_es_debug}) then
+{
+	EE_Scripts_es_debug = getNumber ( configfile >> "EE_Scripts" >> "equipmentSpawner" >> "debug");
+};
 
-	//Select the equipment config for the equipment type
-	if ( isNil {EE_Scripts_es_item}) then
-	{
-		EE_Scripts_es_item = getArray ( configfile >> "EE_Scripts" >> "equipmentSpawner" >> "item");
-	};
-	if ( isNil {EE_Scripts_es_weapon}) then
-	{
-		EE_Scripts_es_weapon = getArray ( configfile >> "EE_Scripts" >> "equipmentSpawner" >> "weapon");
-	};
-	if ( isNil {EE_Scripts_es_backpack}) then
-	{
-		EE_Scripts_es_backpack = getArray ( configfile >> "EE_Scripts" >> "equipmentSpawner" >> "backpack");
-	};
+//Select the equipment config for the equipment type
+if ( isNil {EE_Scripts_es_item}) then
+{
+	EE_Scripts_es_item = getArray ( configfile >> "EE_Scripts" >> "equipmentSpawner" >> "item");
+};
+if ( isNil {EE_Scripts_es_weapon}) then
+{
+	EE_Scripts_es_weapon = getArray ( configfile >> "EE_Scripts" >> "equipmentSpawner" >> "weapon");
+};
+if ( isNil {EE_Scripts_es_backpack}) then
+{
+	EE_Scripts_es_backpack = getArray ( configfile >> "EE_Scripts" >> "equipmentSpawner" >> "backpack");
+};
 
-	_type = _logic getVariable ["Type","weapon"]; //Type of equipment
-	if (EE_Scripts_es_debug) then {systemChat format["DEBUG: EquipmentSpawner: Box type: %1",_type]};
-	_level = _logic getVariable ["Level",25]; //Level of the box
-	if (EE_Scripts_es_debug) then {systemChat format["DEBUG: equipmentSpawner: Box level: %1",_level]};
-	switch (_type) do {
-    switch ("item") do
+_type = _logic getVariable ["Type","weapon"]; //Type of equipment
+[0, "equipmentSpawner", format["Box type: %1", _type], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
+_level = _logic getVariable ["Level",25]; //Level of the box
+[0, "equipmentSpawner", format["Box level: %1", _level], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
+switch (_type) do
+{
+  switch ("item") do
+	{
+    if (_level > count EE_Scripts_es_item) then
 		{
-      if (_level > count EE_Scripts_es_item) then {
-				systemChat format ["WARNING: equipmentSpawner: Box level %1 higher than item config level %2", _level, count EE_Scripts_es_item];
-				_level = count EE_Scripts_es_item;
-			};
-    };
-    switch ("weapon") do
-		{
-      if (_level > count EE_Scripts_es_weapon) then {
-				systemChat format ["WARNING: equipmentSpawner: Box level %1 higher than weapon config level %2", _level, count EE_Scripts_es_item];
-				_level = count EE_Scripts_es_weapon;
-			};
-    };
-    switch ("backpack") do
-		{
-      if (_level > count EE_Scripts_es_backpack) then {
-				systemChat format ["WARNING: equipmentSpawner: Box level %1 higher than backpack config level %2", _level, count EE_Scripts_es_item];
-				_level = count EE_Scripts_es_backpack;
-			};
-    };
-		if (_level < 0) then {
-			systemChat format ["WARNING: equipmentSpawner: Box level %1 lower than 0", _level];
-			_level = 0;
+			[3, "equipmentSpawner", format ["Box level %1 higher than item config level %2", _level, count EE_Scripts_es_item], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
+			_level = count EE_Scripts_es_item;
 		};
+  };
+  switch ("weapon") do
+	{
+    if (_level > count EE_Scripts_es_weapon) then
+		{
+			[3, "equipmentSpawner", format ["Box level %1 higher than weapon config level %2", _level, count EE_Scripts_es_item], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
+			_level = count EE_Scripts_es_weapon;
+		};
+  };
+  switch ("backpack") do
+	{
+    if (_level > count EE_Scripts_es_backpack) then
+		{
+			[3, "equipmentSpawner", format ["Box level %1 higher than backpack config level %2", _level, count EE_Scripts_es_item], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
+			_level = count EE_Scripts_es_backpack;
+		};
+  };
+	if (_level < 0) then
+	{
+		[3, "equipmentSpawner", format ["Box level %1 lower than 0", _level], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
+		_level = 0;
 	};
-	_range = _logic getVariable ["Range",5]; //Range for leveled Eqipment selection
-	if (EE_Scripts_es_debug) then {systemChat format["DEBUG: equipmentSpawner: Box range: %1",_range]};
-	if (_level < 0) then {
-		systemChat format ["WARNING: equipmentSpawner: Box range %1 higher than box level %2", _range, _level];
-		_ERROR = true;
-	};
+};
+_range = _logic getVariable ["Range",5]; //Range for leveled Eqipment selection
+[0, "equipmentSpawner", format["Box range: %1",_range], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
+if (_level < 0) then
+{
+	[0, "equipmentSpawner", format["Box range %1 higher than box level %2", _range, _level], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
+	_ERROR = true;
+};
 
-	_logic setVariable ["Type", _type, true];
-	_logic setVariable ["Level", _level, true];
-	_logic setVariable ["Range", _range, true];
+_logic setVariable ["Type", _type, true];
+_logic setVariable ["Level", _level, true];
+_logic setVariable ["Range", _range, true];
 
+if (_activated) then
+{
+	[0, "equipmentSpawner", "Activated", EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
 	if ( isNil {EE_Scripts_es_blacklist_item}) then {	EE_Scripts_es_blacklist_item = [];};
 	if ( isNil {EE_Scripts_es_blacklist_weapon}) then {	EE_Scripts_es_blacklist_weapon = [];};
 	if ( isNil {EE_Scripts_es_blacklist_backpack}) then {	EE_Scripts_es_blacklist_backpack = [];};
@@ -121,7 +122,8 @@ if (_activated) then {
  _whitelist_backpack = _logic getVariable ["EE_Scripts_es_bwhitelist_backpack", []];
 
  [_box, ["Load to Arsenal", {[_this select 3 select 0, _this select 3 select 1, _this select 3 select 2, _this select 3 select 3] call EE_Scripts_fnc_sa_loadEquipment;}, [_box, _whitelist_item, _whitelist_weapon, _whitelist_backpack],1.4,false,false,"","[_target] call EE_Scripts_fnc_es_selectiveArsenalNear"]] remoteExec ["addAction", 0, _box];
- if (EE_Scripts_es_debug) then {
+ if (EE_Scripts_es_debug < 3) then
+ {
 	 _box = _logic getVariable "Box";
 	 [_box, ["FillBox", {[_this select 3 select 0, _this select 3 select 1, _this select 3 select 2, _this select 3 select 3] call EE_Scripts_fnc_es_fillBox;}, [_logic, _box, _type, _level, _range]]] remoteExec ["addAction", -2, _box];
  };

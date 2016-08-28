@@ -4,51 +4,64 @@ _type = _logic getVariable "Type";
 _vehicle = _logic getVariable "Vehicle";
 
 private "_respawn_cfg";
-switch _type do {
+switch _type do
+{
 	case "aa": {
 		_respawn_cfg = EE_Scripts_vs_respawn_aa;
 	};
-	case "vehicle": {
+	case "vehicle":
+	{
 		_respawn_cfg = EE_Scripts_vs_respawn_vehicle;
 	};
-	case "artillary": {
+	case "artillary":
+	{
 		_respawn_cfg = EE_Scripts_vs_respawn_artillary;
 	};
-	case "plane": {
+	case "plane":
+	{
 		_respawn_cfg = EE_Scripts_vs_respawn_plane;
 	};
-	case "boat": {
+	case "boat":
+	{
 		_respawn_cfg = EE_Scripts_vs_respawn_boat;
 	};
-	case "helicopter": {
+	case "helicopter":
+	{
 		_respawn_cfg = EE_Scripts_vs_respawn_helicopter;
 	};
 };
 private "_cfg";
-switch _type do {
-	case "aa": {
+switch _type do
+{
+	case "aa":
+	{
 		_cfg = EE_Scripts_vs_aa;
 	};
-	case "vehicle": {
+	case "vehicle":
+	{
 		_cfg = EE_Scripts_vs_vehicle;
 	};
-	case "artillary": {
+	case "artillary":
+	{
 		_cfg = EE_Scripts_vs_artillary;
 	};
-	case "plane": {
+	case "plane":
+	{
 		_cfg = EE_Scripts_vs_plane;
 	};
 	case "boat": {
 		_cfg = EE_Scripts_vs_boat;
 	};
-	case "helicopter": {
+	case "helicopter":
+	{
 		_cfg = EE_Scripts_vs_helicopter;
 	};
 };
 
-if (!isNil{_vehicle}) then {
+if (!isNil{_vehicle}) then
+{
 	waitUntil ({!alive _vehicle;});
-	if (EE_Scripts_vs_debug) then {systemChat "Vehicle distroyed";};
+	[0, "vehicleSpawner", "Vehicle distroyed"] call EE_Scripts_fnc_debug;
 
 	_level = 0;
 	scopeName "main";
@@ -56,8 +69,9 @@ if (!isNil{_vehicle}) then {
 
 	  _level_array = _x;
 	  {
-	    if (_x == _vehicleName) then {
-	      	if (EE_Scripts_vs_debug) then {systemChat format["Vehicle %1 level found: %2", _level, _vehicleName];};
+	    if (_x == _vehicleName) then
+			{
+				[0, "vehicleSpawner", format["Vehicle %1 level found: %2", _level, _vehicleName], EE_Scripts_vs_debug] call EE_Scripts_fnc_debug;
 	      breakTo "main";
 	    };
 	  } forEach _level_array;
@@ -65,7 +79,7 @@ if (!isNil{_vehicle}) then {
 	} forEach _cfg;
 
 	_max = _respawn_cfg select _level;
-		if (EE_Scripts_vs_debug) then {systemChat format["Respawn time: %1", _max];};
+		[0, "vehicleSpawner", format["Respawn time: %1", _max], EE_Scripts_vs_debug] call EE_Scripts_fnc_debug;
 	_i = floor _max;
 	while{_i > 0} do
 	{

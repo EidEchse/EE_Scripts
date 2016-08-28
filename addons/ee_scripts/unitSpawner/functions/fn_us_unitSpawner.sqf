@@ -5,19 +5,24 @@ _units = param [1,[],[[]]];
 // True when the module was activated, false when it's deactivated (i.e., synced triggers are no longer active)
 _activated = param [2,true,[true]];
 
+if (isNil {EE_Scripts_us_debug}) then
+{
+	EE_Scripts_us_debug = getNumber ( configfile >> "EE_Scripts" >> "unitSpawner" >> "debug");
+};
+
 _units = _logic getVariable ["Units",""];
 if ( _units == "") then
 {
 	[3, "unitSpawner", "No units configured"] call EE_Scripts_fnc_debug;
 }else{
-	[0, "unitSpawner", format["Units to spawn: %1", _units]] call EE_Scripts_fnc_debug;
+	[0, "unitSpawner", format["Units to spawn: %1", _units], EE_Scripts_us_debug] call EE_Scripts_fnc_debug;
 };
 _logic setVariable ["Units", _units, true];
 _count = _logic getVariable ["Count", 1];
-[0, "unitSpawner", format["Number of units: %1", _count]] call EE_Scripts_fnc_debug;
+[0, "unitSpawner", format["Number of units: %1", _count], EE_Scripts_us_debug] call EE_Scripts_fnc_debug;
 _logic setVariable ["Count", _count, true];
 _respawn = _logic getVariable ["Respawn", 0];
-[0, "unitSpawner", format["Time to respawn: %1", _respawn]] call EE_Scripts_fnc_debug;
+[0, "unitSpawner", format["Time to respawn: %1", _respawn], EE_Scripts_us_debug] call EE_Scripts_fnc_debug;
 _logic setVariable ["Respawn", _respawn, true];
 _skill = _logic getVariable ["Skill", 0.5];
 if (_skill < 0) then

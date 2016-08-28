@@ -1,3 +1,3 @@
 class main {
-  debug = 4;
+  debug = 3;
 };

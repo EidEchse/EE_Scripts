@@ -5,6 +5,11 @@ _units = param [1,[],[[]]];
 // True when the module was activated, false when it's deactivated (i.e., synced triggers are no longer active)
 _activated = param [2,true,[true]];
 
+if (isNil {EE_Scripts_ra_debug}) then
+{
+	EE_Scripts_ra_debug = getNumber ( configfile >> "EE_Scripts" >> "reloadingAmmobox" >> "debug");
+};
+
 _reloading = _logic getVariable ["Reloading", ""];
 _logic setVariable ["Reloading", _reloading, true];
 

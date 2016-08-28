@@ -1,5 +1,5 @@
 class vehicleSpawner {
-  debug = 0;
+  debug = 3;
   aa[] =
   {
     {"B_APC_Tracked_01_AA_F"} //Level 0

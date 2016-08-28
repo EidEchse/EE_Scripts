@@ -25,9 +25,9 @@ switch _type do {
 private _return = false;
 scopeName "main";
 {
-  if (EE_Scripts_vs_debug) then {systemChat format["Check: %1", _x]};
+	[0, "vehicleSpawner",  format["Check: %1", _x], EE_Scripts_vs_debug] call EE_Scripts_fnc_debug;
   if (_x == _vehicleName) then {
-    if (EE_Scripts_vs_debug) then {systemChat format["%1: %2 is in blacklist!", _type, _vehicleName]};
+		[0, "vehicleSpawner", format["%1: %2 is in blacklist!", _type, _vehicleName], EE_Scripts_vs_debug] call EE_Scripts_fnc_debug;
     _return = true;
     breakTo "main";
   };
