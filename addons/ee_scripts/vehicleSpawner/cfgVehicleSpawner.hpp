@@ -1,5 +1,5 @@
-class vehicleSpawner {
-  debug = 3;
+class vehicleSpawner
+{
   aa[] =
   {
     {"B_APC_Tracked_01_AA_F"} //Level 0
@@ -51,43 +51,43 @@ class vehicleSpawner {
   };
   respawn_vehicle[] =
   {
-    120, //Level 0
-    300, //Level 1
-    600, //Level 2
-    600, //Level 3
-    600, //Level 4
-    900, //Level 5
-    1200, //Level 6
-    1200, //Level 7
-    1800, //Level 8
-    1800, //Level 9
-    3600, //Level 10
-    3600, //Level 11
-    5400 //Level 12
+    2, //Level 0
+    5, //Level 1
+    10, //Level 2
+    10, //Level 3
+    10, //Level 4
+    15, //Level 5
+    20, //Level 6
+    20, //Level 7
+    30, //Level 8
+    30, //Level 9
+    60, //Level 10
+    60, //Level 11
+    90 //Level 12
   };
   respawn_artillary[] =
   {
-    5400, //Level 0
-    7200 //Level 1
+    60, //Level 0
+    90 //Level 1
   };
   respawn_plane[] =
   {
-    7200, //Level 0
-    9000 //Level 1
+    120, //Level 0
+    180 //Level 1
   };
   respawn_boat[] =
   {
-    1200, //Level 0
-    1800, //Level 1
-    3600 //Level 2
+    30, //Level 0
+    60, //Level 1
+    120 //Level 2
   };
   respawn_helicopter[] =
   {
-    1200, //Level 0
-    1800, //Level 1
-    2700, //Level 2
-    3600, //Level 3
-    5400, //Level 4
-    7200 //Level 5
+    20, //Level 0
+    30, //Level 1
+    45, //Level 2
+    60, //Level 3
+    120, //Level 4
+    180 //Level 5
   };
 };

@@ -1,4 +1,9 @@
-params ["_logic", "_box", "_type", "_level", "_range"];
+params ["_logic"];
+
+_type = _logic getVariable "Type";
+_range = _logic getVariable "Range";
+_box = _logic getVariable "Box";
+_level = _logic getVariable "Level";
 
 //Select the equipment config for the equipment type
 private "_cfg";
@@ -18,7 +23,7 @@ switch _type do
 	};
 };
 
-[0, "equipmentSpawner", format["Cfg levels: %1", count _cfg], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
+["DEBUG", "equipmentSpawner", format["Cfg levels: %1", count _cfg], EE_Scripts_es_debug] spawn EE_Scripts_fnc_debug;
 
 //Calculate the minimum and maximum level vor the equipment selection
 private ["_max", "_min"];
@@ -42,22 +47,22 @@ if (_range == 0) then {
 };
 
 
-[0, "equipmentSpawner", format["Min level: %1",_min], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
-[0, "equipmentSpawner", format["Max level: %1",_max], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
+["DEBUG", "equipmentSpawner", format["Min level: %1", _min], EE_Scripts_es_debug] spawn EE_Scripts_fnc_debug;
+["DEBUG", "equipmentSpawner", format["Max level: %1", _max], EE_Scripts_es_debug] spawn EE_Scripts_fnc_debug;
 
-_pool = [_min, _max, _type] call EE_Scripts_fnc_es_createPool;
+_pool = [_logic , _min, _max] call EE_Scripts_fnc_es_createPool;
 
 _whitelist_item = [];
 _whitelist_weapon = [];
 _whitelist_backpack = [];
 if (count _pool > 0) then
 {
-	[1, "equipmentSpawner", format["Pool size: %1",count _pool], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
-	_eqm = [_pool, _type] call EE_Scripts_fnc_es_selectEquipment;
+	["INFORMATION", "equipmentSpawner", format["Pool size: %1", count _pool], EE_Scripts_es_debug] spawn EE_Scripts_fnc_debug;
+	_eqm = [_logic, _pool] call EE_Scripts_fnc_es_selectEquipment;
 	if (!isNil {_eqm}) then
   {
 		{
-			[1, "equipmentSpawner", format ["Selected equipment %1 type %2", _x, _type], EE_Scripts_es_debug] call EE_Scripts_fnc_debug;
+			["INFORMATION", "equipmentSpawner", format ["Selected equipment %2 %1", _x, _type], EE_Scripts_es_debug] spawn EE_Scripts_fnc_debug;
 		  switch _type do
       {
 		    case "item":
@@ -82,5 +87,5 @@ if (count _pool > 0) then
 
 _logic setVariable ["EE_Scripts_es_whitelist_item", _whitelist_item, true];
 _logic setVariable ["EE_Scripts_es_whitelist_weapon", _whitelist_weapon, true];
-_logic setVariable ["EE_Scripts_es_bwhitelist_backpack", _whitelist_backpack, true];
+_logic setVariable ["EE_Scripts_es_whitelist_backpack", _whitelist_backpack, true];
 true

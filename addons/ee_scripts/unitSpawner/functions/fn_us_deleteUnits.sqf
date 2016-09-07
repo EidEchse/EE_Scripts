@@ -10,6 +10,6 @@ _logic setVariable ["DeleteUnits", true, true];
 
 _logic setVariable ["CurUnits", [], true];
 _logic setVariable ["NextRespawn", 0, true];
-systemChat format["Number of units now acailable: %1", _count];
+(format["%1 new units now availabe", _count]) remoteExec ["hint", [0,-2] select isDedicated];
 [_logic] call EE_Scripts_fnc_us_createActions;
 true
