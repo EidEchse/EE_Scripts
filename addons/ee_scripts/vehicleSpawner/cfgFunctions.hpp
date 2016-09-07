@@ -7,6 +7,4 @@ class vehicleSpawner
 	class vs_selectVehicle{};
 	class vs_spawnVehicle{};
 	class vs_clearBlacklist{};
-	class vs_toggleLock{};
-	class vs_respawnVehicle{};
 };

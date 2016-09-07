@@ -41,7 +41,7 @@ _logic setVariable ["NextRespawn", _nextRespawn, true];
 
 if (_activated) then
 {
-	[1, "unitSpawner", "Activated", EE_Scripts_us_debug] spawn EE_Scripts_fnc_debug;
+	["INFORMATION", "unitSpawner", "Activated", EE_Scripts_us_debug] spawn EE_Scripts_fnc_debug;
 
 	_box = ["unitSpawner", _logic, "CargoNet_01_box_F"] call EE_SCripts_fnc_spawnBox;
 	_box setVariable ["CurCount", _count, true];

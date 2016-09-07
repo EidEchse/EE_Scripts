@@ -5,10 +5,7 @@ _units = param [1,[],[[]]];
 // True when the module was activated, false when it's deactivated (i.e., synced triggers are no longer active)
 _activated = param [2,true,[true]];
 
-if (isNil {EE_Scripts_vs_debug}) then
-{
-	EE_Scripts_vs_debug = getNumber ( configfile >> "EE_Scripts" >> "vehicleSpawner" >> "debug");
-};
+if (isNil {EE_Scripts_vs_debug}) then {	EE_Scripts_vs_debug = "WARNING";};
 
 //Select the equipment config for the equipment type
 if ( isNil {EE_Scripts_vs_aa}) then {
@@ -50,8 +47,19 @@ if ( isNil {EE_Scripts_vs_respawn_helicopter}) then {
 	EE_Scripts_vs_respawn_helicopter = getArray ( configfile >> "EE_Scripts" >> "vehicleSpawner" >> "respawn_helicopter");
 };
 
-if (_activated) then {
-	[0, "vehicleSpawner", "Activated"] spawn EE_Scripts_fnc_debug;
+_type = _logic getVariable ["Type", "vehicle"];
+_logic setVariable ["Type", _type, true];
+["DEBUG", "vehicleSpawner", format["Vehicle type: %1", _type], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
+_level = _logic getVariable ["Level", 25]; //Level of the box
+_logic setVariable ["Level", _level, true];
+["DEBUG", "vehicleSpawner", format["Vehicle level: %1",_level], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
+_range = _logic getVariable ["Range", 5]; //Range for leveled Eqipment selection
+_logic setVariable ["Range", _range, true];
+["DEBUG", "vehicleSpawner", format["Vehicle range: %1",_range], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
+
+if (_activated) then
+{
+	["INFORMATION", "vehicleSpawner", "Activated", EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
 	if ( isNil {EE_Scripts_vs_blacklist_aa}) then {	EE_Scripts_vs_blacklist_aa = [];};
 	if ( isNil {EE_Scripts_vs_blacklist_vehicle}) then {	EE_Scripts_vs_blacklist_vehicle = [];};
 	if ( isNil {EE_Scripts_vs_blacklist_artillary}) then {	EE_Scripts_vs_blacklist_artillary = [];};

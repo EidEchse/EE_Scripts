@@ -39,7 +39,7 @@ _position = _logic getVariable ["Home", position _logic];
 _dir = _logic getVariable ["HomeDir", getDir _logic];
 _vehicle = _vehicleName createVehicle _position;
 _vehicle setDir _dir;
-_return = true;
+_return = _vehicle;
 if (!isNull _vehicle) then
 {
   _vehicle setVariable ["ALIVE_profileIgnore", true];
@@ -51,16 +51,16 @@ if (!isNull _vehicle) then
 
   if (_init != "") then
   {
-    [_logic,_vehicle, _vehicleName] execVM _init;
+    [_logic, _vehicle, _vehicleName] execVM _init;
   };
 
-  ["DEBUG", "vehicleSpawner", "Vehicle %1 init called", _debug] spawn EE_Scripts_fnc_debug;
+  ["DEBUG", "vehicleSpawner", format ["Vehicle %1 init called", _vehicleName], _debug] spawn EE_Scripts_fnc_debug;
 
   [_vehicle, ["Set Home", {(_this select 3) setVariable ["Home", (position (_this select 0)), true];(_this select 3) setVariable ["HomeDir", (getDir (_this select 0)), true];}, _logic, 1.5, false]] remoteExec ["addAction", [0,-2] select isDedicated, _vehicle];
 
   if (_debug isEqualTo "DEBUG") then
   {
-    [_vehicle, ["SpawnVehicle", {[_this select 3] call EE_Scripts_fnc_vr_respawnVehicle;}, _logic, 1.5, false]] remoteExec ["addAction", [0,-2] select isDedicated, _vehicle];
+    [[_logic, _vehicleName, _debug], ["SpawnVehicle", {[_this select 3 select 0, _this select 3 select 0, _this select 3 select 0] spawn EE_Scripts_fnc_spawnVehicle;}, _logic, 1.5, false]] remoteExec ["addAction", [0,-2] select isDedicated, _vehicle];
   };
 
   _vehicle lock 2;
