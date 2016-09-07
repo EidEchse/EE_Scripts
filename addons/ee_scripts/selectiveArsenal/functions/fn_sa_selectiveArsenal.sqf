@@ -5,10 +5,7 @@ _units = param [1,[],[[]]];
 // True when the module was activated, false when it's deactivated (i.e., synced triggers are no longer active)
 _activated = param [2,true,[true]];
 
-if (isNil {EE_Scripts_sa_debug}) then
-{
-	EE_Scripts_sa_debug = getNumber ( configfile >> "EE_Scripts" >> "selectiveArsenal" >> "debug");
-};
+if (isNil {EE_Scripts_sa_debug}) then {	EE_Scripts_sa_debug = "WARNING";};
 
 if (isNil{EE_Scripts_sa_Arsenal}) then
 {
@@ -34,16 +31,15 @@ if ( isNil {EE_Scripts_sa_weapons}) then
 
 if (_activated) then
 {
-	[0, "selectiveArsenal", "Activated", EE_Scripts_sa_debug] spawn EE_Scripts_fnc_debug;
+	["INFORMATION", "selectiveArsenal", "Activated", EE_Scripts_sa_debug] spawn EE_Scripts_fnc_debug;
   _box = ["selectiveArsenal", _logic, "B_CargoNet_01_ammo_F"] call EE_SCripts_fnc_spawnBox;
 	_box setVariable["EE_Scripts_is_selectiveArsenal", true, true];
 	EE_Scripts_sa_Arsenal pushBackUnique _box;
 
-	0 = ["AmmoboxInit",[_box,false]] spawn BIS_fnc_arsenal;
+	["AmmoboxInit",[_box,false]] spawn BIS_fnc_arsenal;
   [_box, EE_Scripts_sa_weapons, true] call BIS_fnc_addVirtualMagazineCargo;
   [_box, EE_Scripts_sa_backpacks, true] call BIS_fnc_addVirtualMagazineCargo;
   [_box, EE_Scripts_sa_magazines, true] call BIS_fnc_addVirtualMagazineCargo;
   [_box, EE_Scripts_sa_items, true] call BIS_fnc_addVirtualItemCargo;
-
 };
 true

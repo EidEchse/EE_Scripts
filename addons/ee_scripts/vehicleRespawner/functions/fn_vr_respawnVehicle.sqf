@@ -42,12 +42,12 @@ if (!isNull _vehicle) then
   [0, "vehicleRespawner", "Vehicle %1 init called", EE_Scripts_vr_debug] spawn EE_Scripts_fnc_debug;
 
   /*_vehicle addAction ["Set Home", '(_this select 3) setVariable ["Home", (position (_this select 0)), true];(_this select 3) setVariable ["HomeDir", (getDir (_this select 0)), true];', _logic, 1.5, false];*/
-  [_vehicle, ["Set Home", {(_this select 3) setVariable ["Home", (position (_this select 0)), true];(_this select 3) setVariable ["HomeDir", (getDir (_this select 0)), true];}, _logic, 1.5, false]] remoteExec ["addAction", -2, _vehicle];
+  [_vehicle, ["Set Home", {(_this select 3) setVariable ["Home", (position (_this select 0)), true];(_this select 3) setVariable ["HomeDir", (getDir (_this select 0)), true];}, _logic, 1.5, false]] remoteExec ["addAction", [0,-2] select isDedicated, _vehicle];
 
   if (EE_Scripts_vr_debug < 3) then
   {
     /*_vehicle addAction ["DEBUG: SpawnVehicle", "[_this select 3] call EE_Scripts_fnc_vr_respawnVehicle;", _logic, 1.5, false];*/
-    [_vehicle, ["SpawnVehicle", {[_this select 3] call EE_Scripts_fnc_vr_respawnVehicle;}, _logic, 1.5, false]] remoteExec ["addAction", -2, _vehicle];
+    [_vehicle, ["SpawnVehicle", {[_this select 3] call EE_Scripts_fnc_vr_respawnVehicle;}, _logic, 1.5, false]] remoteExec ["addAction", [0,-2] select isDedicated, _vehicle];
   };
 
   /*[_logic, _vehicle] call EE_Scripts_fnc_vs_toggleLock;*/

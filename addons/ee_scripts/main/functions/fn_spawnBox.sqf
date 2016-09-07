@@ -15,7 +15,7 @@ if (isNil {_box}) then
 };
 _logic setVariable ["Box", _box, true];
 
-[_box, [false]] remoteExec ["allowDamage", 0, _box];
+[_box, false] remoteExec ["allowDamage", _box];
 _box setDir getDir _logic;
 _box setPos getPos _logic;
 clearMagazineCargoGlobal _box;

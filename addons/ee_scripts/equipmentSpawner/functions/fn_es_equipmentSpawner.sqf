@@ -114,10 +114,10 @@ if (_activated) then
 	_whitelist_weapon = _logic getVariable ["EE_Scripts_es_whitelist_weapon", []];
 	_whitelist_backpack = _logic getVariable ["EE_Scripts_es_whitelist_backpack", []];
 
-	[_box, ["Load to Arsenal", {[_this select 3 select 0, _this select 3 select 1, _this select 3 select 2, _this select 3 select 3] call EE_Scripts_fnc_sa_loadEquipment;}, [_box, _whitelist_item, _whitelist_weapon, _whitelist_backpack], 1.4, false, false, "", "[_target] call EE_Scripts_fnc_es_selectiveArsenalNear"]] remoteExec ["addAction", -2, _box];
-	if (EE_Scripts_es_debug == "DEBUG") then
+	[_box, ["Load to Arsenal", {[_this select 3 select 0, _this select 3 select 1, _this select 3 select 2, _this select 3 select 3] call EE_Scripts_fnc_sa_loadEquipment;}, [_box, _whitelist_item, _whitelist_weapon, _whitelist_backpack], 1.4, false, false, "", "[_target] call EE_Scripts_fnc_es_selectiveArsenalNear"]] remoteExec ["addAction", [0,-2] select isDedicated, _box];
+	if (EE_Scripts_es_debug isEqualTo "DEBUG") then
 	{
-		[_box, ["FillBox", {[_this select 3 select 0, _this select 3 select 1, _this select 3 select 2, _this select 3 select 3] call EE_Scripts_fnc_es_fillBox;}, [_logic, _box, _type, _level, _range]]] remoteExec ["addAction", -2, _box];
+		[_box, ["FillBox", {[_this select 3 select 0, _this select 3 select 1, _this select 3 select 2, _this select 3 select 3] call EE_Scripts_fnc_es_fillBox;}, [_logic, _box, _type, _level, _range]]] remoteExec ["addAction", [0,-2] select isDedicated, _box];
 	};
 };
 

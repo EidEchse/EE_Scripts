@@ -1,5 +1,4 @@
 class selectiveArsenal {
-  debug = 3;
   magazines[] =
   {
     "B_IR_Grenade",

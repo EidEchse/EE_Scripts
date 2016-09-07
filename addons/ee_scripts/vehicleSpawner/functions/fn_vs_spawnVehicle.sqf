@@ -94,12 +94,12 @@ if (isNil{_vehicleName}) then
 		clearWeaponCargoGlobal _vehicle;
 		clearBackpackCargoGlobal _vehicle;
 		/*_vehicle addAction ["Set Home", '(_this select 3) setVariable ["Home", (position (_this select 0)), true];(_this select 3) setVariable ["HomeDir", (getDir (_this select 0)), true];', _logic, 1.5, false];*/
-		[_vehicle, ["Set Home", {(_this select 3) setVariable ["Home", (position (_this select 0)), true];(_this select 3) setVariable ["HomeDir", (getDir (_this select 0)), true];}, _logic, 1.5, false]] remoteExec ["addAction", -2, _vehicle];
+		[_vehicle, ["Set Home", {(_this select 3) setVariable ["Home", (position (_this select 0)), true];(_this select 3) setVariable ["HomeDir", (getDir (_this select 0)), true];}, _logic, 1.5, false]] remoteExec ["addAction", [0,-2] select isDedicated, _vehicle];
 
 	  if (EE_Scripts_vs_debug < 3) then
 		{
 			/*_vehicle addAction ["SpawnVehicle", "[_this select 3] call EE_Scripts_fnc_vs_spawnVehicle;", _logic, 1.5, false];*/
-			[_vehicle, ["SpawnVehicle", {[_this select 3] call EE_Scripts_fnc_vs_spawnVehicle;}, _logic, 1.5, false]] remoteExec ["addAction", -2, _vehicle];
+			[_vehicle, ["SpawnVehicle", {[_this select 3] call EE_Scripts_fnc_vs_spawnVehicle;}, _logic, 1.5, false]] remoteExec ["addAction", [0,-2] select isDedicated, _vehicle];
 		};
 		/*[_logic, _vehicle] call EE_Scripts_fnc_vs_toggleLock;*/
 		_vehicle lock 2;
