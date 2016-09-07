@@ -5,17 +5,14 @@ _units = param [1,[],[[]]];
 // True when the module was activated, false when it's deactivated (i.e., synced triggers are no longer active)
 _activated = param [2,true,[true]];
 
-if (isNil {EE_Scripts_vr_debug}) then
-{
-	EE_Scripts_vr_debug = getNumber ( configfile >> "EE_Scripts" >> "vehicleRespawner" >> "debug");
-};
+if (isNil {EE_Scripts_vr_debug}) then {	EE_Scripts_vr_debug = "WARNING";};
 
 _init = _logic getVariable ["Init", ""];
 _logic setVariable ["Init", _init, true];
 
 _name = _logic getVariable "Name";
 if (isNil {_name}) then {
-	[3, "vehicleRespawner", "Vehiclename is unset", EE_Scripts_vr_debug] spawn EE_Scripts_fnc_debug;
+	["ERROR", "vehicleRespawner", "Vehiclename is unset", EE_Scripts_vr_debug] spawn EE_Scripts_fnc_debug;
 };
 _logic setVariable ["Name", _name, true];
 
@@ -24,8 +21,8 @@ _logic setVariable ["Respawn", _respawn, true];
 
 if (_activated) then
 {
-	[0, "vehicleRespawner", "Activated", EE_Scripts_vr_debug] spawn EE_Scripts_fnc_debug;
+	["DEBUG", "vehicleRespawner", "Activated", EE_Scripts_vr_debug] spawn EE_Scripts_fnc_debug;
 
- [_logic] spawn EE_Scripts_fnc_vr_respawnVehicle;
+ [_logic, _name, EE_Scripts_vr_debug] spawn EE_Scripts_fnc_spawnVehicle;
 };
 true
