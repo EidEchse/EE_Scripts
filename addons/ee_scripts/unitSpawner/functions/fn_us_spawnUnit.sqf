@@ -12,6 +12,6 @@ _box setVariable ["CurCount", _curCount - 1, true];
 _logic setVariable ["CurUnits", _curUnits + [_unit], true];
 
 _logic setVariable ["DeleteUnits", false, true];
-[_logic] call EE_Scripts_fnc_us_createActions;
+[_logic] spawn EE_Scripts_fnc_us_createActions;
 [_logic, _unit] spawn EE_Scripts_fnc_us_watchUnit;
 true
