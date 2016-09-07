@@ -15,15 +15,16 @@ _logic setVariable ["Init", _init, true];
 
 _name = _logic getVariable "Name";
 if (isNil {_name}) then {
-	[3, "vehicleRespawner", "Vehiclename is unset", EE_Scripts_vr_debug] call EE_Scripts_fnc_debug;
+	[3, "vehicleRespawner", "Vehiclename is unset", EE_Scripts_vr_debug] spawn EE_Scripts_fnc_debug;
 };
 _logic setVariable ["Name", _name, true];
 
 _respawn = _logic getVariable ["Respawn", 0];
 _logic setVariable ["Respawn", _respawn, true];
 
-if (_activated) then {
-	[0, "vehicleRespawner", "Activated", EE_Scripts_vr_debug] call EE_Scripts_fnc_debug;
+if (_activated) then
+{
+	[0, "vehicleRespawner", "Activated", EE_Scripts_vr_debug] spawn EE_Scripts_fnc_debug;
 
  [_logic] spawn EE_Scripts_fnc_vr_respawnVehicle;
 };

@@ -28,6 +28,18 @@ class vehicleSpawner: Module_F
 		// Arguments shared by specific module type (have to be mentioned in order to be placed on top)
 		/*class Units: Units {};*/
 		// Module specific arguments
+		class Init
+		{
+			displayName = "Init"; // Argument label
+			description = "Init String. executed short after box creation ([_logic,_vehicle, _vehicleName] spawn _init;)"; // Tooltip description
+			typeName = "STRING"; // Value type, can be "NUMBER", "STRING" or "BOOL"
+		};
+		class BoxClass
+		{
+			displayName = "Box class string"; // Argument label
+			description = "The class name for the box that should be spawned"; // Tooltip description
+			typeName = "STRING"; // Value type, can be "NUMBER", "STRING" or "BOOL"
+		};
 		class Type
 			{
 			displayName = "Type"; // Argument label

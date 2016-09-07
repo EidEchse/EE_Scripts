@@ -34,6 +34,12 @@ class reloadingAmmobox: Module_F
 			description = "Init String. executed short after box creation ([_logic,_vehicle, _vehicleName] spawn _init;)"; // Tooltip description
 			typeName = "STRING"; // Value type, can be "NUMBER", "STRING" or "BOOL"
 		};
+		class BoxClass
+		{
+			displayName = "Box class string"; // Argument label
+			description = "The class name for the box that should be spawned"; // Tooltip description
+			typeName = "STRING"; // Value type, can be "NUMBER", "STRING" or "BOOL"
+		};
 		class Items
 		{
 			displayName = "Items"; // Argument label

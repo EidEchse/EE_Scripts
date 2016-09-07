@@ -1,33 +1,36 @@
 params ["_level","_module","_message","_debugLevel"];
 
-if (isNil {_debugLevel}) then
-{
-  _debugLevel = getNumber ( configfile >> "EE_Scripts" >> _module >> "debug");
-};
+if (isNil {_debugLevel}) then { _debugLevel = "WARNING"};
 
-if (_debugLevel <= _level) then
+_debug = [_level, _debugLevel];
+for [{_i = 0}, {_i <= 1}, {_i=_i+1}] do
 {
-  switch (_level) do
+  switch (_debug select _i) do
   {
-      case (0):
+      case ("DEBUG"):
       {
-          systemChat format ["%1 | %2 | %3", "DEBUG", _module, _message];
+          _debug set [_i, 4];
       };
-      case (1):
+      case ("INFORMATION"):
       {
-          systemChat format ["%1 | %2 | %3", "INFORMATION", _module, _message];
+          _debug set [_i, 3];
       };
-      case (2):
+      case ("WARNING"):
       {
-          systemChat format ["%1 | %2 | %3", "WARNING", _module, _message];
+          _debug set [_i, 2];
       };
-      case (3):
+      case ("ERROR"):
       {
-          systemChat format ["%1 | %2 | %3", "ERROR", _module, _message];
+          _debug set [_i, 1];
       };
       default
       {
-          systemChat format ["%1 | %2 | %3", "NOT CLASSIFIED", _module, _message];
+          _debug set [_i, 0];
       };
   };
+};
+
+if (_debug select 0 <= _debug select 1) then
+{
+  systemChat format ["%1 | %2 | %3", _level, _module, _message];
 };

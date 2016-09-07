@@ -5,50 +5,55 @@ _units = param [1,[],[[]]];
 // True when the module was activated, false when it's deactivated (i.e., synced triggers are no longer active)
 _activated = param [2,true,[true]];
 
-if (isNil {EE_Scripts_ra_debug}) then
-{
-	EE_Scripts_ra_debug = getNumber ( configfile >> "EE_Scripts" >> "reloadingAmmobox" >> "debug");
-};
+if (isNil {EE_Scripts_ra_debug}) then {	EE_Scripts_ra_debug = "WARNING";};
 
-_reloading = _logic getVariable ["Reloading", ""];
+_reloading = _logic getVariable ["Reloading", "B_Slingload_01_Ammo_F"];
 _logic setVariable ["Reloading", _reloading, true];
 
 _distance = _logic getVariable ["Distance", 2];
-if (_distance < 2) then {
-	[2, "reloadingAmmobox", "Distance under 2m set to 2m"] call EE_Scripts_fnc_debug;
+if (_distance < 2) then
+{
+	["WARNING", "reloadingAmmobox", "Distance under 2m set to 2m", EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
 };
 _logic setVariable ["Distance", _distance, true];
 
 _time = _logic getVariable ["Time", 0];
 _logic setVariable ["Time", _time, true];
-
+_magazines = _logic getVariable ["Magazines", ""];
+_logic setVariable ["Magazines", _magazines, true];
 _items = _logic getVariable ["Items", ""];
-if ( _Items == "") then {
-	_Items = getArray ( configfile >> "EE_Scripts" >> "reloadingAmmobox" >> "items");
-}else{
-	[1, "reloadingAmmobox", "Loading items from config"] call EE_Scripts_fnc_debug;
-	_items = compile (_logic getVariable "Items");
-	_items = [] call _items;
-};
 _logic setVariable ["Items", _items, true];
 
-_magazines = _logic getVariable ["Magazines", ""];
-if ( _magazines == "") then {
-	_magazines = getArray ( configfile >> "EE_Scripts" >> "reloadingAmmobox" >> "magazines");
-}else{
-	[1, "reloadingAmmobox", "Loading magazines from config"] call EE_Scripts_fnc_debug;
-	_magazines = compile  (_logic getVariable "Magazines");
-	_magazines = [] call _magazines;
+if (_activated) then
+{
+	["INFORMATION", "reloadingAmmobox", "Activated",  EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+	_cfgs = [];
+	_load = [_items, _magazines];
+	["DEBUG", "reloadingAmmobox", format ["Load: %1", str _load], EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+	for [{_i=0},{_i <= 1},{_i=_i+1}] do
+	{
+		_cfg = _load select _i;
+		_nameList = [];
+		_countList = [];
+		if ( _cfg != "") then
+		{
+			{
+				_couple = _x splitString ":|";
+				if ((count _couple) > 1) then
+				{
+					_nameList pushBack (_couple select 0);
+					_countList pushBack (parseNumber (_couple select 1));
+				}else{
+					_nameList pushBack (_couple select 0);
+					_countList pushBack (1);
+				};
+			} forEach (_cfg splitString ",; ");
+		};
+		_cfgs set [_i, [_nameList, _countList]];
+	};
+	["INFORMATION", "reloadingAmmobox", format ["Loading equipment from logic: %1", str _cfgs], EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+
+	["unitSpawner", _logic, "Box_NATO_Ammo_F"] call EE_SCripts_fnc_spawnBox;
+	[_logic, _cfgs] spawn EE_Scripts_fnc_ra_reloadAmmobox;
 };
-_logic setVariable ["Magazines", _magazines, true];
-
-
-if (_activated) then {
-	[0, "reloadingAmmobox", "Activated"] call EE_Scripts_fnc_debug;
-
-	_box = ["unitSpawner", _logic, "Box_NATO_Ammo_F"] call EE_SCripts_fnc_spawnBox;
-
- 	[_logic] spawn EE_Scripts_fnc_ra_reloadAmmobox;
-};
-
 true

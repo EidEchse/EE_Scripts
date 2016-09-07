@@ -61,7 +61,7 @@ switch _type do
 if (!isNil{_vehicle}) then
 {
 	waitUntil ({!alive _vehicle;});
-	[0, "vehicleSpawner", "Vehicle distroyed"] call EE_Scripts_fnc_debug;
+	[0, "vehicleSpawner", "Vehicle distroyed"] spawn EE_Scripts_fnc_debug;
 
 	_level = 0;
 	scopeName "main";
@@ -71,7 +71,7 @@ if (!isNil{_vehicle}) then
 	  {
 	    if (_x == _vehicleName) then
 			{
-				[0, "vehicleSpawner", format["Vehicle %1 level found: %2", _level, _vehicleName], EE_Scripts_vs_debug] call EE_Scripts_fnc_debug;
+				[0, "vehicleSpawner", format["Vehicle %1 level found: %2", _level, _vehicleName], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
 	      breakTo "main";
 	    };
 	  } forEach _level_array;
@@ -79,7 +79,7 @@ if (!isNil{_vehicle}) then
 	} forEach _cfg;
 
 	_max = _respawn_cfg select _level;
-		[0, "vehicleSpawner", format["Respawn time: %1", _max], EE_Scripts_vs_debug] call EE_Scripts_fnc_debug;
+		[0, "vehicleSpawner", format["Respawn time: %1", _max], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
 	_i = floor _max;
 	while{_i > 0} do
 	{

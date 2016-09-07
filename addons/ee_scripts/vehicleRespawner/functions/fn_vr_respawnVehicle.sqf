@@ -8,7 +8,7 @@ if (!isNil {_vehicle}) then
 {
   waitUntil ({!alive _vehicle;});
   _vehicle = nil;
-  [1, "vehicleRespawner", format["Vehicle %1 distroyed", _vehicleName], EE_Scripts_vr_debug] call EE_Scripts_fnc_debug;
+  [1, "vehicleRespawner", format["Vehicle %1 distroyed", _vehicleName], EE_Scripts_vr_debug] spawn EE_Scripts_fnc_debug;
   _respawnIn = round _respawn;
   while{_respawnIn > 0} do
   {
@@ -39,7 +39,7 @@ if (!isNull _vehicle) then
     [_logic,_vehicle, _vehicleName] execVM _init;
   };
 
-  [0, "vehicleRespawner", "Vehicle %1 init called", EE_Scripts_vr_debug] call EE_Scripts_fnc_debug;
+  [0, "vehicleRespawner", "Vehicle %1 init called", EE_Scripts_vr_debug] spawn EE_Scripts_fnc_debug;
 
   /*_vehicle addAction ["Set Home", '(_this select 3) setVariable ["Home", (position (_this select 0)), true];(_this select 3) setVariable ["HomeDir", (getDir (_this select 0)), true];', _logic, 1.5, false];*/
   [_vehicle, ["Set Home", {(_this select 3) setVariable ["Home", (position (_this select 0)), true];(_this select 3) setVariable ["HomeDir", (getDir (_this select 0)), true];}, _logic, 1.5, false]] remoteExec ["addAction", -2, _vehicle];

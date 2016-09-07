@@ -2,15 +2,15 @@ params ["_logic"];
 
 _type = _logic getVariable "Type"; //Type of equipment
 if (isNil {_type}) then {_type = "vehicle"};
-[0, "vehicleSpawner", format["Vehicle type: %1",_type], EE_Scripts_vs_debug] call EE_Scripts_fnc_debug;
+[0, "vehicleSpawner", format["Vehicle type: %1",_type], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
 _logic setVariable ["Type", _type, true];
 _level = _logic getVariable "Level"; //Level of the box
 if (isNil {_level}) then {_level = 25};
-[0, "vehicleSpawner", format["Vehicle level: %1",_level], EE_Scripts_vs_debug] call EE_Scripts_fnc_debug;
+[0, "vehicleSpawner", format["Vehicle level: %1",_level], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
 _logic setVariable ["Level", _level, true];
 _range = _logic getVariable "Range"; //Range for leveled Eqipment selection
 if (isNil {_range}) then {_range = 5};
-[0, "vehicleSpawner", format["Vehicle range: %1",_range], EE_Scripts_vs_debug] call EE_Scripts_fnc_debug;
+[0, "vehicleSpawner", format["Vehicle range: %1",_range], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
 _logic setVariable ["Range", _range, true];
 
 _vehicleName = _logic getVariable "VehicleName";
@@ -46,7 +46,7 @@ if (isNil{_vehicleName}) then
 		};
 	};
 
-	[0, "vehicleSpawner", format["Cfg levels: %1", count _cfg], EE_Scripts_vs_debug] call EE_Scripts_fnc_debug;
+	[0, "vehicleSpawner", format["Cfg levels: %1", count _cfg], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
 
 	//Calculate the minimum and maximum level vor the equipment selection
 	private ["_max", "_min"];
@@ -63,16 +63,16 @@ if (isNil{_vehicleName}) then
 	}else{
 	  _min = _level - _range;
 	};
-	[0, "vehicleSpawner", format["Min level: %1",_min], EE_Scripts_vs_debug] call EE_Scripts_fnc_debug;
-	[0, "vehicleSpawner", format["Max level: %1",_max], EE_Scripts_vs_debug] call EE_Scripts_fnc_debug;
+	[0, "vehicleSpawner", format["Min level: %1",_min], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
+	[0, "vehicleSpawner", format["Max level: %1",_max], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
 
 	_pool = [_min, _max, _type, _cfg] call EE_Scripts_fnc_vs_createPool;
 	private "_vehicle";
 	if (count _pool > 0) then
 	{
-		[0, "vehicleSpawner", format["Pool size: %1",count _pool], EE_Scripts_vs_debug] call EE_Scripts_fnc_debug;
+		[0, "vehicleSpawner", format["Pool size: %1",count _pool], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
 		_vehicleName = [_pool, _type] call EE_Scripts_fnc_vs_selectVehicle;
-		[0, "vehicleSpawner", format ["Selected vehicle %1 type %2", _vehicleName, _type], EE_Scripts_vs_debug] call EE_Scripts_fnc_debug;
+		[0, "vehicleSpawner", format ["Selected vehicle %1 type %2", _vehicleName, _type], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
 		_vehicle = _logic getVariable "Vehicle";
 		if (!isNil {_vehicle}) then
 		{

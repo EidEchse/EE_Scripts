@@ -51,7 +51,7 @@ if ( isNil {EE_Scripts_vs_respawn_helicopter}) then {
 };
 
 if (_activated) then {
-	[0, "vehicleSpawner", "Activated"] call EE_Scripts_fnc_debug;
+	[0, "vehicleSpawner", "Activated"] spawn EE_Scripts_fnc_debug;
 	if ( isNil {EE_Scripts_vs_blacklist_aa}) then {	EE_Scripts_vs_blacklist_aa = [];};
 	if ( isNil {EE_Scripts_vs_blacklist_vehicle}) then {	EE_Scripts_vs_blacklist_vehicle = [];};
 	if ( isNil {EE_Scripts_vs_blacklist_artillary}) then {	EE_Scripts_vs_blacklist_artillary = [];};
