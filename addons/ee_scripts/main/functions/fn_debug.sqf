@@ -32,5 +32,9 @@ for [{_i = 0}, {_i <= 1}, {_i=_i+1}] do
 
 if (_debug select 0 <= _debug select 1) then
 {
-  (format ["%1 | %2 | %3", _level, _module, _message]) remoteExec ["systemChat", [0,-2] select isDedicated];
+  if (_level isEqualTo "ERROR") then {
+    (format ["%1 | %2 | %3", _level, _module, _message]) remoteExec ["hintC", [0,-2] select isDedicated];
+  }else{
+    (format ["%1 | %2 | %3", _level, _module, _message]) remoteExec ["systemChat", [0,-2] select isDedicated];
+  };
 };

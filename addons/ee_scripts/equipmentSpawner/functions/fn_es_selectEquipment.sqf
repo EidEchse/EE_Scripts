@@ -47,14 +47,17 @@ if (_listed) then
     case "item":
 		{
         EE_Scripts_es_blacklist_item = EE_Scripts_es_blacklist_item + [_x];
+				publicVariable "EE_Scripts_es_blacklist_item";
     };
     case "weapon":
 		{
         EE_Scripts_es_blacklist_weapon = EE_Scripts_es_blacklist_weapon + [_x];
+				publicVariable "EE_Scripts_es_blacklist_weapon";
     };
     case "backpack":
 		{
       EE_Scripts_es_blacklist_backpack = EE_Scripts_es_blacklist_backpack + [_x];
+			publicVariable "EE_Scripts_es_blacklist_backpack";
     };
   };
 } forEach _eqm;

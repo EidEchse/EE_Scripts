@@ -39,21 +39,27 @@ if (_listed) then {
 switch _type do {
 	case "aa": {
 		EE_Scripts_vs_blacklist_aa = EE_Scripts_vs_blacklist_aa + [_vehicleName];
+		publicVariable "EE_Scripts_us_debug";
 	};
 	case "vehicle": {
 		EE_Scripts_vs_blacklist_vehicle = EE_Scripts_vs_blacklist_vehicle + [_vehicleName];
+		publicVariable "EE_Scripts_us_debug";
 	};
 	case "artillary": {
 		EE_Scripts_vs_blacklist_artillary = EE_Scripts_vs_blacklist_artillary + [_vehicleName];
+		publicVariable "EE_Scripts_us_debug";
 	};
 	case "plane": {
 		EE_Scripts_vs_blacklist_plane = EE_Scripts_vs_blacklist_plane + [_vehicleName];
+		publicVariable "EE_Scripts_us_debug";
 	};
 	case "boat": {
 		EE_Scripts_vs_blacklist_boat = EE_Scripts_vs_blacklist_boat + [_vehicleName];
+		publicVariable "EE_Scripts_us_debug";
 	};
 	case "helicopter": {
 		EE_Scripts_vs_blacklist_helicopter = EE_Scripts_vs_blacklist_helicopter + [_vehicleName];
+		publicVariable "EE_Scripts_us_debug";
 	};
 };
 

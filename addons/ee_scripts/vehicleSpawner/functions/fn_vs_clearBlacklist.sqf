@@ -6,21 +6,27 @@ params ["_pool", "_type"];
     ["DEBUG", "vehicleSpawner", format["Remove from blacklist: %1", _x], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
     case "aa": {
       EE_Scripts_vs_blacklist_aa = EE_Scripts_vs_blacklist_aa - [_x];
+      publicVariable "EE_Scripts_us_debug";
     };
     case "vehicle": {
       EE_Scripts_vs_blacklist_vehicle = EE_Scripts_vs_blacklist_vehicle - [_x];
+      publicVariable "EE_Scripts_us_debug";
     };
     case "artillary": {
       EE_Scripts_vs_blacklist_artillary = EE_Scripts_vs_blacklist_artillary - [_x];
+      publicVariable "EE_Scripts_us_debug";
     };
     case "plane": {
       EE_Scripts_vs_blacklist_plane = EE_Scripts_vs_blacklist_plane - [_x];
+      publicVariable "EE_Scripts_us_debug";
     };
     case "boat": {
       EE_Scripts_vs_blacklist_boat = EE_Scripts_vs_blacklist_boat - [_x];
+      publicVariable "EE_Scripts_us_debug";
     };
     case "helicopter": {
       EE_Scripts_vs_blacklist_helicopter = EE_Scripts_vs_blacklist_helicopter - [_x];
+      publicVariable "EE_Scripts_us_debug";
     };
   };
 } forEach _pool;

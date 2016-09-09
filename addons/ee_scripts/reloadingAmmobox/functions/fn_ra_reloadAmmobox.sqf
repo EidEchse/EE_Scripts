@@ -69,11 +69,13 @@ while {true} do
               {
                 _box addItemCargoGlobal [_loadName, _count];
                 ["INFORMATION", "reloadingAmmobox", format ["Reloading item: %1 x %2...", _count, _loadName], EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+                _reloaded = true;
               };
               case (1):
               {
                 _box addMagazineCargoGlobal [_loadName, _count];
                 ["INFORMATION", "reloadingAmmobox", format ["Reloading magazine: %1 x %2...", _count, _loadName], EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+                _reloaded = true;
               };
               case (2):
               {
@@ -81,13 +83,14 @@ while {true} do
                 {
                   _box addItemCargoGlobal [_loadName, _count];
                   ["INFORMATION", "reloadingAmmobox", format ["Added item: %1 x %2...", _count, _loadName], EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+                  _reloaded = true;
                 }else{
                   _box addMagazineCargoGlobal [_loadName, _count];
                   ["INFORMATION", "reloadingAmmobox", format ["Added magazine: %1 x %2...", _count, _loadName], EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+                  _reloaded = true;
                 };
               };
             };
-            _reloaded = true;
           };
         };
       };
@@ -99,6 +102,6 @@ while {true} do
       sleep 10;
     };
   };
-  sleep 10;
+  sleep 60;
 };
 true

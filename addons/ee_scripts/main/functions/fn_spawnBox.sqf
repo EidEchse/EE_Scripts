@@ -1,5 +1,6 @@
 params ["_moduleName","_logic","_className"];
 if (isNil {EE_Scripts_main_debug}) then {EE_Scripts_main_debug = "WARNING"};
+publicVariable "EE_Scripts_main_debug";
 
 _boxClass = _logic getVariable ["BoxClass", _className];
 if (_boxClass == "") then

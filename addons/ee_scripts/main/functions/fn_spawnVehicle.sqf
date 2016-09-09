@@ -60,11 +60,11 @@ if (!isNull _vehicle) then
 
   if (_debug isEqualTo "DEBUG") then
   {
-    [[_logic, _vehicleName, _debug], ["SpawnVehicle", {[_this select 3 select 0, _this select 3 select 0, _this select 3 select 0] spawn EE_Scripts_fnc_spawnVehicle;}, _logic, 1.5, false]] remoteExec ["addAction", [0,-2] select isDedicated, _vehicle];
+    [[_logic, _vehicleName, _debug], ["SpawnVehicle", {[_this select 3 select 0, _this select 3 select 0, _this select 3 select 0] call EE_Scripts_fnc_spawnVehicle;}, _logic, 1.5, false]] remoteExec ["addAction", [0,-2] select isDedicated, _vehicle];
   };
 
   _vehicle lock 2;
-  [_logic, _vehicleName, _debug] spawn EE_Scripts_fnc_spawnVehicle;
+  [_logic, _vehicleName, _debug] call EE_Scripts_fnc_spawnVehicle;
   _firstRun = _logic getVariable ["firstRun", true];
   if (!_firstRun) then
   {

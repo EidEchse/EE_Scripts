@@ -27,17 +27,17 @@ if (!isNil {_objects}) then
               case (0):
               {
                 ["INFORMATION", "selectiveArsenal", format["Add item: %1", _eqm], EE_Scripts_sa_debug] spawn EE_Scripts_fnc_debug;
-                [_arsenal, _eqm, true] spawn BIS_fnc_addVirtualItemCargo;
+                [_arsenal, _eqm, true] call BIS_fnc_addVirtualItemCargo;
               };
               case (1):
               {
                 ["INFORMATION", "selectiveArsenal", format["Add weapon: %1", _eqm], EE_Scripts_sa_debug] spawn EE_Scripts_fnc_debug;
-                [_arsenal, _eqm, true] spawn BIS_fnc_addVirtualWeaponCargo;
+                [_arsenal, _eqm, true] call BIS_fnc_addVirtualWeaponCargo;
               };
               case (2):
               {
                 ["INFORMATION", "selectiveArsenal", format["Add backpack: %1", _eqm], EE_Scripts_sa_debug] spawn EE_Scripts_fnc_debug;
-                [_arsenal, _eqm, true] spawn BIS_fnc_addVirtualBackpackCargo;
+                [_arsenal, _eqm, true] call BIS_fnc_addVirtualBackpackCargo;
               };
             };
             _cfg = (configfile >> "CfgWeapons" >> _eqm);
@@ -54,7 +54,7 @@ if (!isNil {_objects}) then
           "" remoteExec ["hint", [0,-2] select isDedicated];
           sleep 1;
         };
-        [_arsenal] spawn EE_Scripts_fnc_sa_synchronizeArsenal;
+        [_arsenal] call EE_Scripts_fnc_sa_synchronizeArsenal;
       };
     };
   } forEach _objects;
