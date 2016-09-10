@@ -3,7 +3,7 @@ _backpacks = _arsenal call BIS_fnc_getVirtualBackpackCargo;
 _items = _arsenal call BIS_fnc_getVirtualItemCargo;
 _magazines = _arsenal call BIS_fnc_getVirtualMagazineCargo;
 _weapons = _arsenal call BIS_fnc_getVirtualWeaponCargo;
-if (isNil {EE_Scripts_sa_debug}) then {	EE_Scripts_sa_debug = "WARNING";};
+if (isNil "EE_Scripts_sa_debug") then {	EE_Scripts_sa_debug = "WARNING";};
 {
   [ _x, [_backpacks], true] call BIS_fnc_addVirtualBackpackCargo;
   ["DEBUG", "selectiveArsenal", format ["%1 add backpacks %2", _x, str _backpacks], EE_Scripts_sa_debug] spawn EE_Scripts_fnc_debug;

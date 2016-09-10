@@ -1,20 +1,22 @@
-params ["_moduleName","_logic","_className"];
-if (isNil {EE_Scripts_main_debug}) then {EE_Scripts_main_debug = "WARNING"};
-publicVariable "EE_Scripts_main_debug";
+params ["_logic"];
+_module = _logic getVariable "Module";
+_debug = _logic getVariable "Debug";
 
-_boxClass = _logic getVariable ["BoxClass", _className];
+_boxClassDefault = _logic getVariable "BoxClassDefault";
+_boxClass = _logic getVariable ["BoxClass", ""];
+_box = _logic getVariable "Box";
+
 if (_boxClass == "") then
 {
-  _boxClass = _className;
+  _boxClass = _boxClassDefault;
+  _logic setVariable ["BoxClass", _boxClass];
 };
-_logic setVariable ["BoxClass", _boxClass, true];
 
-_box = _logic getVariable "Box";
 if (isNil {_box}) then
 {
     _box = _boxClass createVehicle position _logic;
+    _logic setVariable ["Box", _box];
 };
-_logic setVariable ["Box", _box, true];
 
 [_box, false] remoteExec ["allowDamage", _box];
 _box setDir getDir _logic;
@@ -23,14 +25,14 @@ clearMagazineCargoGlobal _box;
 clearItemCargoGlobal _box;
 clearWeaponCargoGlobal _box;
 clearBackpackCargoGlobal _box;
-["DEBUG", "main", format["Box %1 spawned", _box], EE_Scripts_main_debug] spawn EE_Scripts_fnc_debug;
+["DEBUG", _module, format["Box %1 spawned", _box], _debug] spawn EE_Scripts_fnc_debug;
 
 _init = _logic getVariable ["Init", ""];
-_logic setVariable ["Init", _init, true];
+_logic setVariable ["Init", _init];
 if (_init != "") then
 {
   [_logic, _box, _boxClass] execVM _init;
 };
 
-["DEBUG", "main", format["Box %1 init %2 called",_box, _init], EE_Scripts_main_debug] spawn EE_Scripts_fnc_debug;
+["DEBUG", _module, format["Box %1 init %2 called",_box, _init], _debug] spawn EE_Scripts_fnc_debug;
 _box
