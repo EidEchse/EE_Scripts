@@ -1,65 +1,64 @@
-params ["_pool", "_type"];
+params ["_logic", "_pool"];
+
+_module = _logic getVariable "Module";
+_debug = _logic getVariable "Debug";
+
+_type = _logic getVariable "Type";
 
 _select =  floor (random ((count _pool) -1));
-["DEBUG", "vehicleSpawner", format["Select random pool number: %1", _select], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
+["DEBUG", _module, format["Select random pool number: %1", _select], _debug] spawn EE_Scripts_fnc_debug;
 _vehicleName = _pool select _select;
 scopeName "main";
-_listed = [_vehicleName, _type] call EE_Scripts_fnc_vs_inBlacklist;
+_listed = [_logic, _vehicleName] call EE_Scripts_fnc_vs_inBlacklist;
 if (_listed) then {
-	["DEBUG", "vehicleSpawner", "Select another equipment down", EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
+	["DEBUG", _module, "Select another equipment down", _debug] spawn EE_Scripts_fnc_debug;
 	_i = _select -1;
   while {_i >= 0} do
 	{
 		_vehicleName = _pool select  _i;
-		["DEBUG", "vehicleSpawner", format["Select pool number: %1", _i], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
-		_listed = [_vehicleName, _type] call EE_Scripts_fnc_vs_inBlacklist;
+		["DEBUG", _module, format["Select pool number: %1", _i], _debug] spawn EE_Scripts_fnc_debug;
+		_listed = [_logic, _vehicleName] call EE_Scripts_fnc_vs_inBlacklist;
 		if (!_listed) then {
 			breakTo "main";
 		};
 		_i = _i - 1;
   };
 
-	["DEBUG", "vehicleSpawner", "Select another vehicle up", EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
+	["DEBUG", _module, "Select another vehicle up", _debug] spawn EE_Scripts_fnc_debug;
 	_i = _select +1;
   while {_i <= ((count _pool) -1)} do
   {
     _vehicleName = _pool select  _i;
-		["DEBUG", "vehicleSpawner", format["Select pool number: %1", _i], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
-    _listed = [_vehicleName, _type] call EE_Scripts_fnc_vs_inBlacklist;
+		["DEBUG", _module, format["Select pool number: %1", _i], _debug] spawn EE_Scripts_fnc_debug;
+    _listed = [_logic, _vehicleName] call EE_Scripts_fnc_vs_inBlacklist;
     if (!_listed) then {
       breakTo "main";
     };
 		_i = _i + 1;
 	};
-  [_pool, _type] call EE_Scripts_fnc_vs_clearBlacklist;
+  [_logic, _pool] call EE_Scripts_fnc_vs_clearBlacklist;
 	_vehicleName = _pool select _select;
 };
 
-["DEBUG", "vehicleSpawner", format["Add to blacklist: %1", _vehicleName], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
+["DEBUG", _module, format["Add to blacklist: %1", _vehicleName], _debug] spawn EE_Scripts_fnc_debug;
 switch _type do {
 	case "aa": {
 		EE_Scripts_vs_blacklist_aa = EE_Scripts_vs_blacklist_aa + [_vehicleName];
-		publicVariable "EE_Scripts_us_debug";
 	};
 	case "vehicle": {
 		EE_Scripts_vs_blacklist_vehicle = EE_Scripts_vs_blacklist_vehicle + [_vehicleName];
-		publicVariable "EE_Scripts_us_debug";
 	};
 	case "artillary": {
 		EE_Scripts_vs_blacklist_artillary = EE_Scripts_vs_blacklist_artillary + [_vehicleName];
-		publicVariable "EE_Scripts_us_debug";
 	};
 	case "plane": {
 		EE_Scripts_vs_blacklist_plane = EE_Scripts_vs_blacklist_plane + [_vehicleName];
-		publicVariable "EE_Scripts_us_debug";
 	};
 	case "boat": {
 		EE_Scripts_vs_blacklist_boat = EE_Scripts_vs_blacklist_boat + [_vehicleName];
-		publicVariable "EE_Scripts_us_debug";
 	};
 	case "helicopter": {
 		EE_Scripts_vs_blacklist_helicopter = EE_Scripts_vs_blacklist_helicopter + [_vehicleName];
-		publicVariable "EE_Scripts_us_debug";
 	};
 };
 

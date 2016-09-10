@@ -1,32 +1,30 @@
-params ["_pool", "_type"];
+params ["_logic", "_pool"];
+_module = _logic getVariable "Module";
+_debug = _logic getVariable "Debug";
 
-["INFORMATION", "vehicleSpawner", format["Clear pool from blacklist: %1", count _pool], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
+_type = _logic getVariable "Type";
+
+["INFORMATION", _module, format["Clear pool from blacklist: %1", count _pool], _debug] spawn EE_Scripts_fnc_debug;
 {
   switch (_type) do {
-    ["DEBUG", "vehicleSpawner", format["Remove from blacklist: %1", _x], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
+    ["DEBUG", _module, format["Remove from blacklist: %1", _x], _debug] spawn EE_Scripts_fnc_debug;
     case "aa": {
       EE_Scripts_vs_blacklist_aa = EE_Scripts_vs_blacklist_aa - [_x];
-      publicVariable "EE_Scripts_us_debug";
     };
     case "vehicle": {
       EE_Scripts_vs_blacklist_vehicle = EE_Scripts_vs_blacklist_vehicle - [_x];
-      publicVariable "EE_Scripts_us_debug";
     };
     case "artillary": {
       EE_Scripts_vs_blacklist_artillary = EE_Scripts_vs_blacklist_artillary - [_x];
-      publicVariable "EE_Scripts_us_debug";
     };
     case "plane": {
       EE_Scripts_vs_blacklist_plane = EE_Scripts_vs_blacklist_plane - [_x];
-      publicVariable "EE_Scripts_us_debug";
     };
     case "boat": {
       EE_Scripts_vs_blacklist_boat = EE_Scripts_vs_blacklist_boat - [_x];
-      publicVariable "EE_Scripts_us_debug";
     };
     case "helicopter": {
       EE_Scripts_vs_blacklist_helicopter = EE_Scripts_vs_blacklist_helicopter - [_x];
-      publicVariable "EE_Scripts_us_debug";
     };
   };
 } forEach _pool;

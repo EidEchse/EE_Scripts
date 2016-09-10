@@ -7,7 +7,7 @@ if (isServer) then {
 	_activated = param [2,true,[true]];
 
 	//Modulename for Messages
-	_module = "equipmentSpawner";
+	_module = "reloadingAmmobox";
 	_debug = "WARNING";
 	if (!isNil "EE_Scripts_ra_debug") then {
 		_debug = EE_Scripts_ra_debug;
