@@ -1,4 +1,8 @@
 params ["_logic", "_loadList"];
+
+_module = _logic getVariable "Module";
+_debug = _logic getVariable "Debug";
+
 _reloading = _logic getVariable "Reloading";
 _distance = _logic getVariable "Distance";
 _time = _logic getVariable "Time";
@@ -8,13 +12,13 @@ _reloading = _reloading splitString ",;";
 
 while {true} do
 {
-  ["DEBUG", "reloadingAmmobox", "Check for reload"] spawn EE_Scripts_fnc_debug;
-  ["INFORMATION", "reloadingAmmobox", format["nearestObjects[%1, %2, %3]", _box, _reloading, _distance], EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+  ["DEBUG", _module, "Check for reload"] spawn EE_Scripts_fnc_debug;
+  ["INFORMATION", _module, format["nearestObjects[%1, %2, %3]", _box, _reloading, _distance], _debug] spawn EE_Scripts_fnc_debug;
   _reloaded = false;
   _boxes = nearestObjects [_box, _reloading, _distance];
   _alive = false;
   {
-    ["DEBUG", "reloadingAmmobox", format["Found box %1 for reload", _x], EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+    ["DEBUG", _module, format["Found box %1 for reload", _x], _debug] spawn EE_Scripts_fnc_debug;
     if (alive _x) then
     {
       _alive = true;
@@ -23,7 +27,7 @@ while {true} do
 
   if (_alive) then
   {
-    ["INFORMATION", "reloadingAmmobox", "AmmoboxNear"] spawn EE_Scripts_fnc_debug;
+    ["INFORMATION", _module, "AmmoboxNear", _debug] spawn EE_Scripts_fnc_debug;
 
     _magazineCargo = getMagazineCargo _box;
     _itemCargo = getItemCargo _box;
@@ -49,7 +53,7 @@ while {true} do
             {
               _foundIn = _k;
               _count = _loadCount - _eqmCount;
-              ["DEBUG", "reloadingAmmobox", format["Equipment %1 found in box", _eqmName], EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+              ["DEBUG", _module, format["Equipment %1 found in box", _eqmName], _debug] spawn EE_Scripts_fnc_debug;
               breakTo "found";
             };
           };
@@ -58,7 +62,7 @@ while {true} do
         {
           ((_loadList select _i) select 0) deleteAt _j;
           ((_loadList select _i) select 1) deleteAt _j;
-          ["WARNING", "reloadingAmmobox", format["Equipment %1 in wrong config %2 should be in %3", _loadName, _i, _foundIn], EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+          ["WARNING", _module, format["Equipment %1 in wrong config %2 should be in %3", _loadName, _i, _foundIn], _debug] spawn EE_Scripts_fnc_debug;
         }else{
           if (_count > 0) then
           {
@@ -68,13 +72,13 @@ while {true} do
               case (0):
               {
                 _box addItemCargoGlobal [_loadName, _count];
-                ["INFORMATION", "reloadingAmmobox", format ["Reloading item: %1 x %2...", _count, _loadName], EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+                ["INFORMATION", _module, format ["Reloading item: %1 x %2...", _count, _loadName], _debug] spawn EE_Scripts_fnc_debug;
                 _reloaded = true;
               };
               case (1):
               {
                 _box addMagazineCargoGlobal [_loadName, _count];
-                ["INFORMATION", "reloadingAmmobox", format ["Reloading magazine: %1 x %2...", _count, _loadName], EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+                ["INFORMATION", _module, format ["Reloading magazine: %1 x %2...", _count, _loadName], _debug] spawn EE_Scripts_fnc_debug;
                 _reloaded = true;
               };
               case (2):
@@ -82,11 +86,11 @@ while {true} do
                 if (_i == 0) then
                 {
                   _box addItemCargoGlobal [_loadName, _count];
-                  ["INFORMATION", "reloadingAmmobox", format ["Added item: %1 x %2...", _count, _loadName], EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+                  ["INFORMATION", _module, format ["Added item: %1 x %2...", _count, _loadName], _debug] spawn EE_Scripts_fnc_debug;
                   _reloaded = true;
                 }else{
                   _box addMagazineCargoGlobal [_loadName, _count];
-                  ["INFORMATION", "reloadingAmmobox", format ["Added magazine: %1 x %2...", _count, _loadName], EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+                  ["INFORMATION", _module, format ["Added magazine: %1 x %2...", _count, _loadName], _debug] spawn EE_Scripts_fnc_debug;
                   _reloaded = true;
                 };
               };
@@ -98,7 +102,7 @@ while {true} do
 
     if (_reloaded) then
     {
-      "AmmoBox reloaded" remoteExec ["hint", 0];
+      "AmmoBox reloaded" remoteExec ["hint", [0,-2] select isDedicated];
       sleep 10;
     };
   };

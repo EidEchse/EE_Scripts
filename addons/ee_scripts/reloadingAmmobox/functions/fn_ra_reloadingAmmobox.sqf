@@ -6,32 +6,38 @@ if (isServer) then {
 	// True when the module was activated, false when it's deactivated (i.e., synced triggers are no longer active)
 	_activated = param [2,true,[true]];
 
-	if (isNil {EE_Scripts_ra_debug}) then {	EE_Scripts_ra_debug = "WARNING";};
-	publicVariable "EE_Scripts_ra_debug";
+	//Modulename for Messages
+	_module = "equipmentSpawner";
+	_debug = "WARNING";
+	if (!isNil "EE_Scripts_ra_debug") then {
+		_debug = EE_Scripts_ra_debug;
+	};
+	_logic setVariable ["Module", _module];
+	_logic setVariable ["Debug", _debug];
 
 	_reloading = _logic getVariable ["Reloading", "B_Slingload_01_Ammo_F"];
-	_logic setVariable ["Reloading", _reloading, true];
+	_logic setVariable ["Reloading", _reloading];
 
 	_distance = _logic getVariable ["Distance", 2];
 	if (_distance < 2) then
 	{
-		["WARNING", "reloadingAmmobox", "Distance under 2m set to 2m", EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+		["WARNING", _module, "Distance under 2m set to 2m", _debug] spawn EE_Scripts_fnc_debug;
 	};
-	_logic setVariable ["Distance", _distance, true];
+	_logic setVariable ["Distance", _distance];
 
 	_time = _logic getVariable ["Time", 0];
-	_logic setVariable ["Time", _time, true];
+	_logic setVariable ["Time", _time];
 	_magazines = _logic getVariable ["Magazines", ""];
-	_logic setVariable ["Magazines", _magazines, true];
+	_logic setVariable ["Magazines", _magazines];
 	_items = _logic getVariable ["Items", ""];
-	_logic setVariable ["Items", _items, true];
+	_logic setVariable ["Items", _items];
 
 	if (_activated) then
 	{
-		["INFORMATION", "reloadingAmmobox", "Activated",  EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+		["INFORMATION", _module, "Activated",  _debug] spawn EE_Scripts_fnc_debug;
 		_cfgs = [];
 		_load = [_items, _magazines];
-		["DEBUG", "reloadingAmmobox", format ["Load: %1", str _load], EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+		["DEBUG", _module, format ["Load: %1", str _load], _debug] spawn EE_Scripts_fnc_debug;
 		for [{_i=0},{_i <= 1},{_i=_i+1}] do
 		{
 			_cfg = _load select _i;
@@ -53,10 +59,11 @@ if (isServer) then {
 			};
 			_cfgs set [_i, [_nameList, _countList]];
 		};
-		["INFORMATION", "reloadingAmmobox", format ["Loading equipment from logic: %1", str _cfgs], EE_Scripts_ra_debug] spawn EE_Scripts_fnc_debug;
+		["INFORMATION", _module, format ["Loading equipment from logic: %1", str _cfgs], _debug] spawn EE_Scripts_fnc_debug;
 
-		["unitSpawner", _logic, "Box_NATO_Ammo_F"] call EE_SCripts_fnc_spawnBox;
-		[_logic, _cfgs] call EE_Scripts_fnc_ra_reloadAmmobox;
+		_logic setVariable ["BoxClassDefault", "Box_NATO_Ammo_F"];
+		[_logic] call EE_SCripts_fnc_spawnBox;
+		[_logic, _cfgs] spawn EE_Scripts_fnc_ra_reloadAmmobox;
 	};
 };
 true
