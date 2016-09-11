@@ -1,4 +1,9 @@
-params ["_vehicleName", "_type"];
+params ["_logic", "_vehicleName"];
+
+_module = _logic getVariable "Module";
+_debug = _logic getVariable "Debug";
+
+_type = _logic getVariable "Type";
 
 private "_blacklist";
 switch _type do
@@ -31,9 +36,9 @@ switch _type do
 private _return = false;
 scopeName "main";
 {
-	["DEBUG", "vehicleSpawner",  format["Check: %1", _x], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
+	["DEBUG", _module,  format["Check: %1", _x], _debug] spawn EE_Scripts_fnc_debug;
   if (_x == _vehicleName) then {
-		["DEBUG", "vehicleSpawner", format["%1: %2 is in blacklist!", _type, _vehicleName], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
+		["DEBUG", _module, format["%1: %2 is in blacklist!", _type, _vehicleName], _debug] spawn EE_Scripts_fnc_debug;
     _return = true;
     breakTo "main";
   };

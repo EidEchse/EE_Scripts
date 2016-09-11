@@ -3,7 +3,7 @@ class equipmentSpawner: Module_F
 	// Standard object definitions
 	scope = 2; // Editor visibility; 2 will show it in the menu, 1 will hide it.
 	displayName = "Equipment spawner"; // Name displayed in the menu
-	/*icon = "\EE_Scripts_scripts\data\iconNuke_ca.paa"; // Map icon. Delete this entry to use the default icon*/
+
 	category = "EE_Scripts";
 
 	// Name of function triggered once conditions are met
@@ -19,21 +19,19 @@ class equipmentSpawner: Module_F
 	// // 1 to run init function in Eden Editor as well
 	is3DEN = 0;
 
-	// Menu displayed when the module is placed or double-clicked on by Zeus
-	/*curatorInfoType = "RscDisplayAttributeEquipmentSpawner";*/
-
 	// Module arguments
 	class Arguments: ArgumentsBaseUnits
 	{
 		// Arguments shared by specific module type (have to be mentioned in order to be placed on top)
-		/*class Units: Units {};*/
 		// Module specific arguments
+		//The code executed after box or vehicle creation
 		class Init
 		{
 			displayName = "Init"; // Argument label
-			description = "Init String. executed short after box creation ([_logic,_vehicle, _vehicleName] spawn _init;)"; // Tooltip description
+			description = "Init String. executed short after box or vehicle creation ([_logic,_vehicle, _vehicleName] spawn _init;)"; // Tooltip description
 			typeName = "STRING"; // Value type, can be "NUMBER", "STRING" or "BOOL"
 		};
+		//Classname of the box to spawn
 		class BoxClass
 		{
 			displayName = "Box class string"; // Argument label
