@@ -4,4 +4,5 @@ class main
 	class spawnBox{};
 	class debug{};
 	class spawnVehicle{};
+	class setHome{};
 };

@@ -1,28 +1,38 @@
-// Argument 0 is module logic.
-_logic = param [0,objNull,[objNull]];
-// Argument 1 is list of affected units (affected by value selected in the 'class Units' argument))
-_units = param [1,[],[[]]];
-// True when the module was activated, false when it's deactivated (i.e., synced triggers are no longer active)
-_activated = param [2,true,[true]];
+if (isServer) then {
+	// Argument 0 is module logic.
+	_logic = param [0,objNull,[objNull]];
+	// Argument 1 is list of affected units (affected by value selected in the 'class Units' argument))
+	_units = param [1,[],[[]]];
+	// True when the module was activated, false when it's deactivated (i.e., synced triggers are no longer active)
+	_activated = param [2,true,[true]];
 
-if (isNil {EE_Scripts_vr_debug}) then {	EE_Scripts_vr_debug = "WARNING";};
+	//Modulename for Messages
+	_module = "vehicleRespawner";
+	_debug = "WARNING";
+	if (!isNil "EE_Scripts_vr_debug") then {
+		_debug = EE_Scripts_vr_debug;
+	};
+	_logic setVariable ["Module", _module];
+	_logic setVariable ["Debug", _debug];
 
-_init = _logic getVariable ["Init", ""];
-_logic setVariable ["Init", _init, true];
+	_init = _logic getVariable ["Init", ""];
+	_logic setVariable ["Init", _init];
 
-_name = _logic getVariable "Name";
-if (isNil {_name}) then {
-	["ERROR", "vehicleRespawner", "Vehiclename is unset", EE_Scripts_vr_debug] spawn EE_Scripts_fnc_debug;
-};
-_logic setVariable ["Name", _name, true];
+	_name = _logic getVariable ["Name", ""];
+	if (_name == "") then {
+		["ERROR", _module, "Vehiclename is unset", _debug] spawn EE_Scripts_fnc_debug;
+	}else{
+		_logic setVariable ["Name", _name];
 
-_respawn = _logic getVariable ["Respawn", 0];
-_logic setVariable ["Respawn", _respawn, true];
+		_respawn = _logic getVariable ["Respawn", 0];
+		_logic setVariable ["Respawn", _respawn];
 
-if (_activated) then
-{
-	["DEBUG", "vehicleRespawner", "Activated", EE_Scripts_vr_debug] spawn EE_Scripts_fnc_debug;
+		if (_activated) then
+		{
+			["DEBUG", _module, "Activated", _debug] spawn EE_Scripts_fnc_debug;
 
- [_logic, _name, EE_Scripts_vr_debug] spawn EE_Scripts_fnc_spawnVehicle;
+			[_logic] spawn EE_Scripts_fnc_spawnVehicle;
+		};
+	};
 };
 true

@@ -1,33 +1,55 @@
 params ["_logic"];
+_module = _logic getVariable "Module";
+_debug = _logic getVariable "Debug";
 
 _box = _logic getVariable "Box";
 _curCount = _box getVariable "CurCount";
 _units = _logic getVariable "Units";
 _count = _logic getVariable "Count";
 _respawn = _logic getVariable "Respawn";
-_curUnits = _logic getVariable "CurUnits";
+_nextRespawn = _box getVariable "NextRespawn";
+_curUnits = _box getVariable "CurUnits";
 _skill = _logic getVariable "Skill";
 
-_box remoteExec ["removeAllActions", [0,-2] select isDedicated];
+_netId = (netId _logic) + "removeAllActions";
+_box remoteExec ["removeAllActions", [0,-2] select isDedicated, _netId];
+sleep 0.5;
 
-_nextRespawn = _logic getVariable "NextRespawn";
-if (_nextRespawn == 0) then
-{
-  if ((count _curUnits) > 0) then
-  {
-    [_box, [format ["!!! DELETE ALL UNITS !!!"], {[_this select 3] spawn EE_Scripts_fnc_us_deleteUnits}, _logic, 1.7, false, false]] remoteExec ["addAction", [0,-2] select isDedicated, _box];
-  };
-}else{
-  [_box, [format ["NEXT RESPAWN IN: %1 Minutes", _nextRespawn], "", [], 1.5, false, false]] remoteExec ["addAction", [0,-2] select isDedicated, _box];
+_addActionParams = [format ["NEXT RESPAWN IN: less than %1 Minutes", _nextRespawn], "", _logic, 1.43, false, false, "", "[_target] call EE_Scripts_fnc_us_con_nextRespawn", 5];
+_netId = (netId _logic) + "addAction" + "NEXT RESPAWN IN";
+[_box, _addActionParams] remoteExec ["addAction", [0,-2] select isDedicated, _netId];
+
+_addActionParams = [format ["AVAILABLE: (%1/%2)", _curCount, _count], "", nil, 1.42, false, false, "", "true", 5];
+_netId = (netId _logic) + "addAction" + "AVAILABLE";
+[_box, _addActionParams] remoteExec ["addAction", [0,-2] select isDedicated, _netId];
+
+_addActionParams = [format ["SKILL: %1", _skill], "", nil, 1.41, false, false, "", "true", 5];
+_netId = (netId _logic) + "addAction" + "SKILL";
+[_box, _addActionParams] remoteExec ["addAction", [0,-2] select isDedicated, _netId];
+
+_serverFunction = {
+  _netId = (netId (_this select 3)) + "EE_Scripts_fnc_sa_loadEquipment";
+  (_this select 3) remoteExec ["EE_Scripts_fnc_us_deleteUnits", [0, 2] select isDedicated, _netId];
 };
-
-[_box, [format ["AVAILABLE: (%1/%2)", _curCount, _count], "", [], 1.6, false, false]] remoteExec ["addAction", [0,-2] select isDedicated, _box];
-[_box, [format ["SKILL: %1", _skill], "", [], 1.6, false, false]] remoteExec ["addAction", [0,-2] select isDedicated, _box];
+_addActionParams = ["!!! DELETE ALL UNITS !!!", _serverFunction, _logic, 1.4, false, false, "", "[_target] call EE_Scripts_fnc_us_con_deleteUnits", 5];
+_netId = (netId _logic) + "addAction" + "!!! DELETE ALL UNITS !!!";
+[_box, _addActionParams] remoteExec ["addAction", [0,-2] select isDedicated, _netId];
 
 _units = _units splitString " ,;";
-["DEBUG", "unitSpawner", format["Units that can be spawned: %1", _units], EE_Scripts_us_debug] spawn EE_Scripts_fnc_debug;
+["DEBUG", _module, format["Units that can be spawned: %1", _units], _debug] spawn EE_Scripts_fnc_debug;
+_counter = 0;
 {
   _displayName = getText (configfile >> "CfgVehicles" >> _x >> "displayName");
-  ["DEBUG", "unitSpawner", format["Add Action: %1", _displayName], EE_Scripts_us_debug] spawn EE_Scripts_fnc_debug;
-  [_box, [format ["Spawn: %1", _displayName], {[_this select 3 select 0, _this select 3 select 1, _this select 1] spawn EE_Scripts_fnc_us_spawnUnit},[_logic, _x],1.4,false,false,"","[_target] call EE_Scripts_fnc_us_respawnsLeft"]] remoteExec ["addAction", [0,-2] select isDedicated, _box];
+  ["DEBUG", _module, format["Add Action: %1", _displayName], _debug] spawn EE_Scripts_fnc_debug;
+
+  _serverFunction = {
+    _netId = (netId (_this select 3 select 0)) + (_this select 3 select 1) + "EE_Scripts_fnc_us_spawnUnit";
+    [_this select 3 select 0, _this select 3 select 1, _this select 1] remoteExec ["EE_Scripts_fnc_us_spawnUnit", [0, 2] select isDedicated, _netId];
+  };
+  _addActionParams = [format ["Spawn: %1", _displayName], _serverFunction, [_logic, _x], (1.3 + (_counter/100)), false, false, "", "[_target] call EE_Scripts_fnc_us_con_spawnUnit", 5];
+  _netId = (netId _logic) + "addAction" + "Spawn" + (str _counter);
+  [_box, _addActionParams] remoteExec ["addAction", [0,-2] select isDedicated, _netId];
+  sleep 0.1;
+  _counter = _counter + 1;
 } forEach _units;
+true

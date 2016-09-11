@@ -1,17 +1,20 @@
 params ["_logic", "_pool"];
 
+_module = _logic getVariable "Module";
+_debug = _logic getVariable "Debug";
+
 _type = _logic getVariable "Type";
 
-["INFORMATION", "equipmentSpawner", format["Clear pool from blacklist: %1", count _pool], EE_Scripts_es_debug] spawn EE_Scripts_fnc_debug;
+["INFORMATION", _module, format["Clear pool from blacklist: %1", count _pool], _debug] spawn EE_Scripts_fnc_debug;
 {
   _group_array = _x;
   {
-    ["DEBUG", "equipmentSpawner", format["Remove from blacklist: %1", _x], EE_Scripts_es_debug] spawn EE_Scripts_fnc_debug;
+    ["DEBUG", _module, format["Remove from blacklist: %1", _x], _debug] spawn EE_Scripts_fnc_debug;
     switch (_type) do
     {
       case "item":
       {
-        EE_Scripts_Scripts_es_blacklist_item = EE_Scripts_es_blacklist_item - [_x];
+        EE_Scripts_es_blacklist_item = EE_Scripts_es_blacklist_item - [_x];
       };
       case "weapon":
       {

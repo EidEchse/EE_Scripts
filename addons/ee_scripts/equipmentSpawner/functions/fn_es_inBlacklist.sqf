@@ -1,4 +1,6 @@
 params [ "_logic", "_eqm"];
+_module = _logic getVariable "Module";
+_debug = _logic getVariable "Debug";
 
 _type = _logic getVariable "Type";
 
@@ -25,10 +27,10 @@ scopeName "main";
   _blackEqm = _x;
   switch (_type) do
   {
-    ["DEBUG", "equipmentSpawner", format["Check: %1", _blackEqm], EE_Scripts_es_debug] spawn EE_Scripts_fnc_debug;
+    ["DEBUG", _module, format["Check: %1", _blackEqm], _debug] spawn EE_Scripts_fnc_debug;
     if (_x == _blackEqm) then
     {
-      ["DEBUG", "equipmentSpawner", format["%1: %2 is in blacklist!", _type, _x], EE_Scripts_es_debug] spawn EE_Scripts_fnc_debug;
+      ["DEBUG", _module, format["%1: %2 is in blacklist!", _type, _x], _debug] spawn EE_Scripts_fnc_debug;
 		  _return = true;
 			breakTo "main";
     };

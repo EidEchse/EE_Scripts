@@ -22,29 +22,28 @@ class selectiveArsenal: Module_F
 	// Menu displayed when the module is placed or double-clicked on by Zeus
 	/*curatorInfoType = "RscDisplayAttributeEquipmentSpawner";*/
 
-	// Module arguments
+	// Module description. Must inherit from base class, otherwise pre-defined entities won't be available
+	class ModuleDescription: ModuleDescription
+	{
+		description = "Short module description"; // Short description, will be formatted as structured text
+	};
 	class Arguments: ArgumentsBaseUnits
 	{
 		// Arguments shared by specific module type (have to be mentioned in order to be placed on top)
-		/*class Units: Units {};*/
 		// Module specific arguments
-		/*class Init
+		//The code executed after box or vehicle creation
+		class Init
 		{
 			displayName = "Init"; // Argument label
-			description = "Init String. executed short after box creation ([_logic,_vehicle, _vehicleName] spawn _init;)"; // Tooltip description
+			description = "Init String. executed short after box or vehicle creation ([_logic,_vehicle, _vehicleName] spawn _init;)"; // Tooltip description
 			typeName = "STRING"; // Value type, can be "NUMBER", "STRING" or "BOOL"
 		};
+		//Classname of the box to spawn
 		class BoxClass
 		{
 			displayName = "Box class string"; // Argument label
 			description = "The class name for the box that should be spawned"; // Tooltip description
 			typeName = "STRING"; // Value type, can be "NUMBER", "STRING" or "BOOL"
-		};*/
-	};
-
-	// Module description. Must inherit from base class, otherwise pre-defined entities won't be available
-	class ModuleDescription: ModuleDescription
-	{
-		description = "Short module description"; // Short description, will be formatted as structured text
+		};
 	};
 };

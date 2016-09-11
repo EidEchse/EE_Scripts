@@ -1,9 +1,13 @@
-params ["_pool", "_type"];
+params ["_logic", "_pool"];
+_module = _logic getVariable "Module";
+_debug = _logic getVariable "Debug";
 
-["INFORMATION", "vehicleSpawner", format["Clear pool from blacklist: %1", count _pool], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
+_type = _logic getVariable "Type";
+
+["INFORMATION", _module, format["Clear pool from blacklist: %1", count _pool], _debug] spawn EE_Scripts_fnc_debug;
 {
   switch (_type) do {
-    ["DEBUG", "vehicleSpawner", format["Remove from blacklist: %1", _x], EE_Scripts_vs_debug] spawn EE_Scripts_fnc_debug;
+    ["DEBUG", _module, format["Remove from blacklist: %1", _x], _debug] spawn EE_Scripts_fnc_debug;
     case "aa": {
       EE_Scripts_vs_blacklist_aa = EE_Scripts_vs_blacklist_aa - [_x];
     };
