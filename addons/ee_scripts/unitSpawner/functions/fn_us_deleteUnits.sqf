@@ -14,14 +14,16 @@ if (isServer) then {
   _box setVariable ["CurUnits", [], true];
   _box setVariable ["NextRespawn", 0, true];
   _box setVariable ["CurCount", _count, true];
-  _title = "<t color='#ffffff' size='1.2' shadowColor='#CCCCCC' align='center'>BOX INFORMATION</t><br />";
-  _curCount = "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='left'>Available: " + (str _count) + "</t><br />";
-  _skillText = "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='left'>Skill: " + (str _skill) + "</t><br />";
-  _unitsText = "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='center'>Units:</t><br />";
+  _title = "<t color='#ffffff' size='1.2' align='center'>BOX INFORMATION</t><br />";
+  _curCount = "<t color='#ffffff' size='1.0' align='left'>Available: " + (str _count) + "/" + (str _count) + "</t><br />";
+  _skillText = "<t color='#ffffff' size='1.0' align='left'>Skill: " + (str _skill) + "</t><br />";
+  _unitsText = "<t color='#ffffff' size='1.0' align='center'>Units:</t><br />";
+  _location = nearestLocation [position _logic, ""];
+  _locationText = "<t color='#ffffff' size='1.0' align='center'>Location: " + (className _location) + "</t><br />";
   _text = _title + _curCount + _skillText + _unitsText;
   _units = _units splitString " ,;";
   {
-    _text = _text + "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='center'>" + getText (configfile >> "CfgVehicles" >> _x >> "displayName") + "</t><br />";
+    _text = _text + "<t color='#ffffff' size='1.0' align='center'>" + getText (configfile >> "CfgVehicles" >> _x >> "displayName") + "</t><br />";
   } forEach _units;
   (parseText _text) remoteExec ["hint", [0,-2] select isDedicated];
 

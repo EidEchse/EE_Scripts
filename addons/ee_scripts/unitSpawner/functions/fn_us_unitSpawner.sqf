@@ -22,14 +22,14 @@ if (isServer) then {
 	}else{
 		["DEBUG", _module, format["Units to spawn: %1", _units], _debug] spawn EE_Scripts_fnc_debug;
 	};
-	_logic setVariable ["Units", _units];
+	_logic setVariable ["Units", _units, true];
 	_count = _logic getVariable ["Count", 1];
 	["DEBUG", _module, format["Number of units: %1", _count], _debug] spawn EE_Scripts_fnc_debug;
-	_logic setVariable ["Count", _count];
+	_logic setVariable ["Count", _count, true];
 	_respawn = _logic getVariable ["Respawn", 0];
 	["DEBUG", _module, format["Time to respawn: %1", _respawn], _debug] spawn EE_Scripts_fnc_debug;
 	_logic setVariable ["Respawn", _respawn];
-	_skill = _logic getVariable ["Skill", 0.5];
+	_skill = _logic getVariable ["Skill", 0.5], true;
 	if (_skill < 0) then
 	{
 		[3, _module, "Skill must be between 0 and 1"] spawn EE_Scripts_fnc_debug;
@@ -49,11 +49,13 @@ if (isServer) then {
 
 		_logic setVariable ["BoxClassDefault", "CargoNet_01_box_F"];
 		_box = [_logic] call EE_SCripts_fnc_spawnBox;
-		_box setVariable ["CurCount", _count, true];
-		_box setVariable ["CurUnits", [], true];
-		_nextRespawn = _box getVariable ["NextRespawn", 0];
-		_box setVariable ["NextRespawn", _nextRespawn, true];
-	  [_logic] call EE_Scripts_fnc_us_createActions;
+		_logic setVariable ["Box", _box, true];
+		_logic setVariable ["CurCount", _count, true];
+		_logic setVariable ["CurUnits", [], true];
+		_nextRespawn = _logic getVariable ["NextRespawn", 0];
+		_logic setVariable ["NextRespawn", _nextRespawn, true];
+	  _logic remoteExec ["addAction", [0,-2] select isDedicated, true];
+	  /*[_logic] call EE_Scripts_fnc_us_createActions;*/
 	};
 };
 true
