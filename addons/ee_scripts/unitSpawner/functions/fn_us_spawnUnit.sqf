@@ -32,7 +32,7 @@ if (isServer) then {
     _unit setSkill _skill;
     _box setVariable ["CurCount", _curCount - 1, true];
     _box setVariable ["CurUnits", _curUnits + [_unit], true];
-    [_logic] call EE_Scripts_fnc_us_createActions;
+    _logic remoteExec ["EE_Scripts_fnc_us_createActions", [0,-2] select isDedicated, true];
 
     _logic setVariable ["DeleteUnits", false];
     [_logic, _unit] spawn EE_Scripts_fnc_us_watchUnit;

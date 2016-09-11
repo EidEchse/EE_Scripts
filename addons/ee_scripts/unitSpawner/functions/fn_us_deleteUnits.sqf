@@ -18,8 +18,8 @@ if (isServer) then {
   _curCount = "<t color='#ffffff' size='1.0' align='left'>Available: " + (str _count) + "/" + (str _count) + "</t><br />";
   _skillText = "<t color='#ffffff' size='1.0' align='left'>Skill: " + (str _skill) + "</t><br />";
   _unitsText = "<t color='#ffffff' size='1.0' align='center'>Units:</t><br />";
-  _location = nearestLocation [position _logic, ""];
-  _locationText = "<t color='#ffffff' size='1.0' align='center'>Location: " + (className _location) + "</t><br />";
+  _location = nearestLocation [position _box, ""];
+  _locationText = "<t color='#ffffff' size='1.0' align='left'>Location: " + (className _location) + "</t><br />";
   _text = _title + _curCount + _skillText + _unitsText;
   _units = _units splitString " ,;";
   {
@@ -27,6 +27,6 @@ if (isServer) then {
   } forEach _units;
   (parseText _text) remoteExec ["hint", [0,-2] select isDedicated];
 
-  [_logic] call EE_Scripts_fnc_us_createActions;
+  _logic remoteExec ["EE_Scripts_fnc_us_createActions", [0,-2] select isDedicated, true];
 };
 true

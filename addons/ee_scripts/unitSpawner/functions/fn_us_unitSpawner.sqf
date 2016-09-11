@@ -50,12 +50,11 @@ if (isServer) then {
 		_logic setVariable ["BoxClassDefault", "CargoNet_01_box_F"];
 		_box = [_logic] call EE_SCripts_fnc_spawnBox;
 		_logic setVariable ["Box", _box, true];
-		_logic setVariable ["CurCount", _count, true];
-		_logic setVariable ["CurUnits", [], true];
-		_nextRespawn = _logic getVariable ["NextRespawn", 0];
-		_logic setVariable ["NextRespawn", _nextRespawn, true];
-	  _logic remoteExec ["addAction", [0,-2] select isDedicated, true];
-	  /*[_logic] call EE_Scripts_fnc_us_createActions;*/
+		_box setVariable ["CurCount", _count, true];
+		_box setVariable ["CurUnits", [], true];
+		_nextRespawn = _box getVariable ["NextRespawn", 0];
+		_box setVariable ["NextRespawn", _nextRespawn, true];
+	  _logic remoteExec ["EE_Scripts_fnc_us_createActions", [0,-2] select isDedicated, true];
 	};
 };
 true

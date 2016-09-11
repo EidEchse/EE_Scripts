@@ -72,7 +72,7 @@ if (!isNull _vehicle) then
   [_vehicle, _addActionParams] remoteExec ["addAction", [0,-2] select isDedicated, _netId];
 
   [_logic, _vehicleName, _debug] call EE_Scripts_fnc_spawnVehicle;
-  _location = nearestLocation [position _position, ""];
+  _location = nearestLocation [_position, ""];
   _firstRun = _logic getVariable ["FirstRun", true];
   if (!_firstRun) then
   {

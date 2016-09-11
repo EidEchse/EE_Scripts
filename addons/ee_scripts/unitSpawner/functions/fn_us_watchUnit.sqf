@@ -44,7 +44,7 @@ if (isServer) then {
       };
       if (((_nextRespawn mod 10) == 0) or ((floor _respawn) == _nextRespawn)) then {
         (format["Next spawn available in %1 minutes.", _nextRespawn]) remoteExec ["systemChat", [0,-2] select isDedicated];
-        [_logic] spawn EE_Scripts_fnc_us_createActions;
+        _logic remoteExec ["EE_Scripts_fnc_us_createActions", [0,-2] select isDedicated, true];
       };
       sleep 60;
       waitUntil {count (allPlayers - entities "HeadlessClient_F") > 0};
@@ -59,8 +59,8 @@ if (isServer) then {
     _title = "<t color='#ffffff' size='1.2' align='center'>BOX INFORMATION</t><br />";
     _curCount = "<t color='#ffffff' size='1.0' align='left'>Available: " + (str _curCount) + "/" + (str _count) + "</t><br />";
     _skillText = "<t color='#ffffff' size='1.0' align='left'>Skill: " + (str _skill) + "</t><br />";
-    _location = nearestLocation [_position, ""];
-    _locationText = "<t color='#ffffff' size='1.0' align='center'>Location: " + (className _location) + "</t><br />";
+    _location = nearestLocation [position _box, ""];
+    _locationText = "<t color='#ffffff' size='1.0' align='left'>Location: " + (className _location) + "</t><br />";
     _unitsText = "<t color='#ffffff' size='1.0' align='center'>Units:</t><br />";
     _text = _title + _curCount + _skillText + _locationText + _unitsText;
     _units = _units splitString " ,;";
@@ -68,7 +68,7 @@ if (isServer) then {
       _text = _text + "<t color='#ffffff' size='1.0' align='center'>" + getText (configfile >> "CfgVehicles" >> _x >> "displayName") + "</t><br />";
     } forEach _units;
     (parseText _text) remoteExec ["hint", [0,-2] select isDedicated];
-    [_logic] spawn EE_Scripts_fnc_us_createActions;
+    _logic remoteExec ["EE_Scripts_fnc_us_createActions", [0,-2] select isDedicated, true];
   };
 };
 true
