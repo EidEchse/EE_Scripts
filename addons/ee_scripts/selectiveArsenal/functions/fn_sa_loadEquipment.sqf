@@ -56,9 +56,9 @@ if (isServer) then {
                 _displayName = getText (_cfg >> "displayName");
                 _image = getText (_cfg >> "picture");
 
-                _title = "<t color='#ffffff' size='1.2' shadow='1' shadowColor='#CCCCCC' align='center'>" + _displayName + "</t><br />";
+                _title = "<t color='#ffffff' size='1.2' shadowColor='#CCCCCC' align='center'>" + _displayName + "</t><br />";
                 _picture = "<img size='4' image='" + _image + "' align='center'/><br />";
-                _footer = "<t color='#ffffff' size='1.0' shadow='1' shadowColor='#CCCCCC' align='center'>Loaded to Selective Arsenal</t>";
+                _footer = "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='center'>Loaded to Selective Arsenal</t>";
                (parseText (_title + _picture + _footer)) remoteExec ["hint", [0,-2] select isDedicated];
                sleep 5;
               } forEach _list;

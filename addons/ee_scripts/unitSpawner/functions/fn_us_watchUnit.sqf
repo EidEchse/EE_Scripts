@@ -1,10 +1,15 @@
-params ["_logic", "_unit", "_gou"];
+params ["_logic", "_unit"];
+_module = _logic getVariable "Module";
+_debug = _logic getVariable "Debug";
+_skill = _logic getVariable "Skill";
+_units = _logic getVariable "Units";
+
 _respawn = _logic getVariable "Respawn";
 _box = _logic getVariable "Box";
 
-if (_gou == "_unit") then {
+/*if (_gou == "_unit") then {*/
   waitUntil ({!alive _unit;});
-}else{
+/*}else{
   waitUntil (
     {
       _return = true;
@@ -15,56 +20,48 @@ if (_gou == "_unit") then {
       } forEach (units _unit);
       _return;
     });
-};
-
+};*/
 
 _deleteUnits = _logic getVariable ["DeleteUnits", false];
 if (!_deleteUnits) then {
-  _curUnits = _logic getVariable "CurUnits";
-  _logic setVariable ["CurUnits", _curUnits - [_unit], true];
+  _curUnits = _box getVariable "CurUnits";
+  _box setVariable ["CurUnits", _curUnits - [_unit], true];
+  _title = "<t color='#ffffff' size='1.2' shadowColor='#CCCCCC' align='center'>R.I.P.</t><br />";
+  _footer = "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='center'>" + (name _unit) + "</t>";
+  (parseText (_title + _footer)) remoteExec ["hint", [0,-2] select isDedicated];
+
   _i = floor _respawn;
-  if (_i > 1) then
-  {
-    (format["Next call available in %1 minutes.", _i]) remoteExec ["hint", [0,-2] select isDedicated];
-  }else{
-    (format["Next call available in less than %1 minute.", 1]) remoteExec ["systemChat", [0,-2] select isDedicated];
-  };
   while{_i > 0} do
   {
-    if (_i > 1) then
+    _nextRespawn = _box getVariable "NextRespawn";
+    if ((_i <  _nextRespawn) or (_nextRespawn == 0)) then
     {
-      (format["Next call available in %1 minutes.", _i]) remoteExec ["systemChat", [0,-2] select isDedicated];
-    }else{
-      (format["Next call available in less than %1 minute.", 1]) remoteExec ["systemChat", [0,-2] select isDedicated];
+      _nextRespawn = _i;
+      _box setVariable ["NextRespawn", _nextRespawn, true];
     };
-
-    _nextRespawn = _logic getVariable ["NextRespawn", 0];
-    if (_nextRespawn ==  0) then
-    {
-      _logic setVariable ["NextRespawn", _i, true];
-    }else{
-      if (_i <  _nextRespawn) then
-      {
-        _logic setVariable ["NextRespawn", _i, true];
-      };
+    if (((_nextRespawn mod 10) == 0) or ((floor _respawn) == _nextRespawn)) then {
+      (format["Next spawn available in %1 minutes.", _nextRespawn]) remoteExec ["systemChat", [0,-2] select isDedicated];
+      [_logic] spawn EE_Scripts_fnc_us_createActions;
     };
-
-    [_logic, _gou] call EE_Scripts_fnc_us_createActions;
     sleep 60;
-    _i = _i - 1;
     waitUntil {count (allPlayers - entities "HeadlessClient_F") > 0};
+    _i = _i - 1;
   };
-  _logic setVariable ["NextRespawn", 0, true];
+
+  _box setVariable ["NextRespawn", 0, true];
   _curCount = _box getVariable "CurCount";
-  (format["Spawns now available: %1", _curCount + 1]) remoteExec ["hint", [0,-2] select isDedicated];
-  sleep 10;
-  if (_i > 1) then
+  _curCount = _curCount + 1;
+
+  _title = "<t color='#ffffff' size='1.2' shadowColor='#CCCCCC' align='center'>BOX INFORMATION</t><br />";
+  _curCount = "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='left'>Available: " + (str _count) + "</t><br />";
+  _skillText = "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='left'>Skill: " + (str _skill) + "</t><br />";
+  _unitsText = "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='center'>Units:</t><br />";
+  _text = _title + _curCount + _skillText + _unitsText;
+  _units = _units splitString " ,;";
   {
-    (format["Next call available in %1 minutes.", _i]) remoteExec ["hint", [0,-2] select isDedicated];
-  }else{
-    (format["Next call available in less than %1 minute.", 1]) remoteExec ["systemChat", [0,-2] select isDedicated];
-  };
+    _text = _text + "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='center'>" + getText (configfile >> "CfgVehicles" >> _x >> "displayName") + "</t><br />";
+  } forEach _units;
+  (parseText _text) remoteExec ["hint", [0,-2] select isDedicated];
+  [_logic] spawn EE_Scripts_fnc_us_createActions;
 };
-_curCount = _box getVariable "CurCount";
-_box setVariable ["CurCount", _curCount + 1, true];
-[_logic, _gou] call EE_Scripts_fnc_us_createActions;
+true

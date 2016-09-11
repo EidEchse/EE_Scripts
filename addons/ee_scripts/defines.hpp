@@ -15,7 +15,7 @@ class CfgVehicles
 
   #include "equipmentSpawner\cfgVehicles.hpp"
   #include "vehicleSpawner\cfgVehicles.hpp"
-  /*#include "unitSpawner\cfgVehicles.hpp"*/
+  #include "unitSpawner\cfgVehicles.hpp"
   #include "selectiveArsenal\cfgVehicles.hpp"
   #include "vehicleRespawner\cfgVehicles.hpp"
 	#include "reloadingAmmobox\cfgVehicles.hpp"
@@ -29,7 +29,7 @@ class CfgFunctions
     #include "main\cfgFunctions.hpp"
     #include "equipmentSpawner\cfgFunctions.hpp"
     #include "vehicleSpawner\cfgFunctions.hpp"
-    /*#include "unitSpawner\cfgFunctions.hpp"*/
+    #include "unitSpawner\cfgFunctions.hpp"
     #include "selectiveArsenal\cfgFunctions.hpp"
     #include "vehicleRespawner\cfgFunctions.hpp"
     #include "reloadingAmmobox\cfgFunctions.hpp"

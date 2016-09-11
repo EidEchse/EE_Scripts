@@ -13,12 +13,13 @@ _cfg = (configfile >> "cfgVehicles" >> _vehicleName);
 _displayName = getText (_cfg >> "displayName");
 _image = getText (_cfg >> "picture");
 
-_title = "<t color='#ffffff' size='1.2' shadow='1' shadowColor='#CCCCCC' align='center'>" + _displayName + "</t><br />";
+_title = "<t color='#ffffff' size='1.2' shadowColor='#CCCCCC' align='center'>" + _displayName + "</t><br />";
 _picture = "<img size='4' image='" + _image + "' align='center'/><br />";
 if (!isNil "_vehicle") then
 {
   waitUntil ({!alive _vehicle;});
-  ["INFORMATION", _module, format["Vehicle %1 distroyed", _vehicleName], _debug] spawn EE_Scripts_fnc_debug;
+  _footer = "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='center'>distroyed</t>";
+  (parseText (_title + _picture + _footer)) remoteExec ["hint", [0,-2] select isDedicated];
   _respawnIn = round _respawn;
   while{_respawnIn > 0} do
   {
@@ -75,7 +76,7 @@ if (!isNull _vehicle) then
   _firstRun = _logic getVariable ["FirstRun", true];
   if (!_firstRun) then
   {
-    _footer = "<t color='#ffffff' size='1.0' shadow='1' shadowColor='#CCCCCC' align='center'>respawned</t>";
+    _footer = "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='center'>respawned</t>";
     (parseText (_title + _picture + _footer)) remoteExec ["hint", [0,-2] select isDedicated];
   }else{
     _logic setVariable ["FirstRun", false];
