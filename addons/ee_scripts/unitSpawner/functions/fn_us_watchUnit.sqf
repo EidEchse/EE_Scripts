@@ -11,6 +11,7 @@ if (isServer) then {
   _count = _logic getVariable "Count";
 
   /*if (_gou == "_unit") then {*/
+    _name = name _unit;
     waitUntil ({!alive _unit;});
   /*}else{
     waitUntil (
@@ -30,7 +31,7 @@ if (isServer) then {
     _curUnits = _box getVariable "CurUnits";
     _box setVariable ["CurUnits", _curUnits - [_unit], true];
     _title = "<t color='#ffffff' size='1.2' align='center'>R.I.P.</t><br />";
-    _footer = "<t color='#ffffff' size='1.0' align='center'>" + (name _unit) + "</t>";
+    _footer = "<t color='#ffffff' size='1.0' align='center'>" + _name + "</t>";
     (parseText (_title + _footer)) remoteExec ["hint", [0,-2] select isDedicated];
 
     _i = floor _respawn;

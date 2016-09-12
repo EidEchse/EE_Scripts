@@ -2,7 +2,7 @@ if (hasInterface) then {
   params ["_logic"];
   _box = _logic getVariable "Box";
   _curCount = _box getVariable "CurCount";
-  _units = _logic getVariable "Units";
+  _CfgUnits = _logic getVariable "CfgUnits";
   _count = _logic getVariable "Count";
   _nextRespawn = _box getVariable "NextRespawn";
   _skill = _logic getVariable "Skill";
@@ -20,17 +20,16 @@ if (hasInterface) then {
   };
   _box addAction ["!!! DELETE ALL UNITS !!!", _serverFunction, _logic, 1.4, false, false, "", "[_target] call EE_Scripts_fnc_us_con_deleteUnits", 5];
 
-  _units = _units splitString " ,;";
   _counter = 0;
   {
-    _displayName = getText (configfile >> "CfgVehicles" >> _x >> "displayName");
+    _displayName = getText (_x >> "displayName");
 
     _serverFunction = {
-      _netId = (netId (_this select 3 select 0)) + (_this select 3 select 1) + "EE_Scripts_fnc_us_spawnUnit";
+      _netId = (netId (_this select 3 select 0)) + className (_this select 3 select 1) + "EE_Scripts_fnc_us_spawnUnit";
       [_this select 3 select 0, _this select 3 select 1, _this select 1] remoteExec ["EE_Scripts_fnc_us_spawnUnit", [0, 2] select isDedicated, _netId];
     };
     _box addAction [format ["Spawn: %1", _displayName], _serverFunction, [_logic, _x], (1.3 + (_counter/100)), false, false, "", "[_target] call EE_Scripts_fnc_us_con_spawnUnit", 5];
     _counter = _counter + 1;
-  } forEach _units;
+  } forEach _CfgUnits;
 };
 true

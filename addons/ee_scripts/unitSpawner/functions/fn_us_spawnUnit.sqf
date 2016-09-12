@@ -1,5 +1,5 @@
 if (isServer) then {
-  params ["_logic", "_unitName", "_caller"];
+  params ["_logic", "_Cfg", "_caller"];
   _module = _logic getVariable "Module";
   _debug = _logic getVariable "Debug";
 
@@ -10,13 +10,9 @@ if (isServer) then {
   _type = _logic getVariable "Type";
 
   if (_type == "unit") then {
-    _unit = (group _caller) createUnit [_unitName, position _box, [], 0, "FORM"];
+    _unit = (group _caller) createUnit [configName _Cfg, position _box, [], 0, "FORM"];
   }else{
-    _cond = format ['(configName _x == "%1")', _unitName];
-    _groupCfg = _cond configClasses (configFile >> "CfgVehicles");
-    {
-      systemChat format ["_groupCfg: %1", configName _x];
-    } forEach _groupCfg;
+
   };
 
   if (!isNil{_unit}) then {
