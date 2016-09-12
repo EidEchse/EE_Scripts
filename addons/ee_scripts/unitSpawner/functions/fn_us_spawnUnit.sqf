@@ -7,26 +7,18 @@ if (isServer) then {
   _curCount = _box getVariable "CurCount";
   _curUnits = _box getVariable "CurUnits";
   _skill = _logic getVariable "Skill";
+  _type = _logic getVariable "Type";
 
-  /*_unitName createUnit [ position _box, group _caller, "EE_Scripts_newUnit = this;"];*/
-  _unit = (group _caller) createUnit [_unitName, position _box, [], 0, "FORM"];
-  /*_wait = true;
-  _timer = 0;
-  private "_unit";
-  while {_wait} do {
-    sleep 0.1;
-    if (!isNil "EE_Scripts_newUnit") then {
-      _unit = EE_Scripts_newUnit;
-      EE_Scripts_newUnit = nil;
-      _wait = false;
-    }else{
-      if (_timer >= 50) then {
-        _wait = false;
-        ["ERROR", _module, "NO RESPONSE FROM SPAWN COMMAND. NO UNIT SPAWNED!", _debug] spawn EE_Scripts_fnc_debug;
-      };
-      _timer = _timer + 1;
-    };
-  };*/
+  if (_type == "unit") then {
+    _unit = (group _caller) createUnit [_unitName, position _box, [], 0, "FORM"];
+  }else{
+    _cond = format ['(configName _x == "%1")', _unitName];
+    _groupCfg = _cond configClasses (configFile >> "CfgVehicles");
+    {
+      systemChat format ["_groupCfg: %1", configName _x];
+    } forEach _groupCfg;
+  };
+
   if (!isNil{_unit}) then {
     _unit setVariable ["ALIVE_profileIgnore", true];
     _unit setSkill _skill;
