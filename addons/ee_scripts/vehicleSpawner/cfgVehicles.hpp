@@ -6,6 +6,8 @@ class vehicleSpawner: Module_F
 	/*icon = "\ee_scripts\data\iconNuke_ca.paa"; // Map icon. Delete this entry to use the default icon*/
 	category = "EE_Scripts";
 
+	icon = "\ee_scripts\img\IconModule_vehicleSpornRandom.paa";
+
 	// Name of function triggered once conditions are met
 	function = "EE_Scripts_fnc_vs_vehicleSpawner";
 	// Execution priority, modules with lower number are executed first. 0 is used when the attribute is undefined
