@@ -4,6 +4,8 @@ class equipmentSpawner: Module_F
 	scope = 2; // Editor visibility; 2 will show it in the menu, 1 will hide it.
 	displayName = "Equipment spawner"; // Name displayed in the menu
 
+	icon = "\ee_scripts\img\IconModule_equipmentSporn.paa";
+
 	category = "EE_Scripts";
 
 	// Name of function triggered once conditions are met

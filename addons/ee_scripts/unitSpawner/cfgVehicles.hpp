@@ -6,6 +6,8 @@ class unitSpawner: Module_F
 	/*icon = "\ee_scripts\data\iconNuke_ca.paa"; // Map icon. Delete this entry to use the default icon*/
 	category = "EE_Scripts";
 
+	icon = "\ee_scripts\img\IconModule_UnitSporn.paa";
+
 	// Name of function triggered once conditions are met
 	function = "EE_Scripts_fnc_us_unitSpawner";
 	// Execution priority, modules with lower number are executed first. 0 is used when the attribute is undefined
