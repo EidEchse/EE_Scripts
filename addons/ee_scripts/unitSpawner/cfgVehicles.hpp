@@ -40,9 +40,20 @@ class unitSpawner: Module_F
 			description = "The class name for the box that should be spawned"; // Tooltip description
 			typeName = "STRING"; // Value type, can be "NUMBER", "STRING" or "BOOL"
 		};
+		class Type
+		{
+			displayName = "Type"; // Argument label
+			description = "Unit or group spawn"; // Tooltip description
+			typeName = "STRING"; // Value type, can be "NUMBER", "STRING" or "BOOL"
+			class values
+			{
+				class Unit	{name = "Unit";	value = "unit"; default = 1;}; // Listbox item
+				class Group	{name = "Group"; value = "group";};
+			};
+		};
 		class Units
   	{
-			displayName = "Units";
+			displayName = "Units or Groups";
 			description = 'Classnames of units as , seperated list ("B_Soldier_F","B_Soldier_GL_F","B_soldier_AR_F")';
 			defaultValue = ""; // Default text filled in the input box
 			typeName = "STRING";

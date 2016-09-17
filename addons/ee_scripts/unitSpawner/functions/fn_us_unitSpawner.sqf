@@ -22,7 +22,7 @@ if (isServer) then {
 	}else{
 		["DEBUG", _module, format["Units to spawn: %1", _units], _debug] spawn EE_Scripts_fnc_debug;
 	};
-	_logic setVariable ["Units", _units, true];
+	_logic setVariable ["Units", _units];
 	_count = _logic getVariable ["Count", 1];
 	["DEBUG", _module, format["Number of units: %1", _count], _debug] spawn EE_Scripts_fnc_debug;
 	_logic setVariable ["Count", _count, true];
@@ -47,8 +47,27 @@ if (isServer) then {
 	{
 		["INFORMATION", _module, "Activated", _debug] spawn EE_Scripts_fnc_debug;
 
+		_type = _logic getVariable "Type";
+		_cfgs = [];
+		_nameUnits = _units splitString " ,;";
+		{
+			private "_result";
+			if (_type == "group") then {
+				_result = [str _x, configFile >> "CfgGroups"] call EE_Scripts_fnc_getConfig;
+			}else{
+				_result = [str _x, configFile >> "CfgVehicles"] call EE_Scripts_fnc_getConfig;
+			};
+
+			if (!isNil "_result") then {
+			  _cfgs pushBack _result;
+			}else{
+				["WARNING", _module, format["No config found for class name %1", _x], _debug] spawn EE_Scripts_fnc_debug;
+			};
+		} forEach _nameUnits;
+
 		_logic setVariable ["BoxClassDefault", "CargoNet_01_box_F"];
 		_box = [_logic] call EE_SCripts_fnc_spawnBox;
+		_logic setVariable ["Cfgs", _cfgs, true];
 		_logic setVariable ["Box", _box, true];
 		_box setVariable ["CurCount", _count, true];
 		_box setVariable ["CurUnits", [], true];
