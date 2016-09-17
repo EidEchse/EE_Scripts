@@ -62,8 +62,14 @@ if (isServer) then {
 		["INFORMATION", _module, format ["Loading equipment from logic: %1", str _cfgs], _debug] spawn EE_Scripts_fnc_debug;
 
 		_logic setVariable ["BoxClassDefault", "Box_NATO_Ammo_F"];
-		[_logic] call EE_SCripts_fnc_spawnBox;
-		[_logic, _cfgs] spawn EE_Scripts_fnc_ra_reloadAmmobox;
+		_box = [_logic] call EE_SCripts_fnc_spawnBox;
+		_serverFunction = {
+	    _netId = (netId (_this select 3 select 0)) + "EE_Scripts_fnc_ra_reloadAmmobox";
+	    [_this select 3 select 0, _this select 3 select 1] remoteExec ["EE_Scripts_fnc_ra_reloadAmmobox", [0, 2] select isDedicated, _netId];
+	  };
+	  _addActionParams = ["Reload Ammobox", _serverFunction, [_logic, _cfgs], 1.5, false, true, "", "true", 5];
+	  _netId = (netId _logic) + "addAction" + "Reload";
+	  [_box, _addActionParams] remoteExec ["addAction", [0,-2] select isDedicated, _netId];
 	};
 };
 true

@@ -103,9 +103,13 @@ if (count _pool > 0) then
 	} forEach _cfg;
 	_respawn = _respawn_cfg select _level;
 	_logic setVariable ["Respawn", _respawn];
-	_logic setVariable ["Name", _vehicleName];
-
-	[_logic] spawn EE_Scripts_fnc_spawnVehicle;
+	_result = [str _vehicleName, configFile >> "CfgVehicles"] call EE_Scripts_fnc_getConfig;
+	if (isNil{_result}) then {
+		["ERROR", _module, format["No vehilce config found for: %1", _vehicleName], _debug] spawn EE_Scripts_fnc_debug;
+	}else{
+		_logic setVariable ["Name", _result];
+		[_logic] spawn EE_Scripts_fnc_spawnVehicle;
+	};
 }else{
 	["WARNING", _module, format ["No Vehicles in range from %1 to %2", _min, _max], _debug] spawn EE_Scripts_fnc_debug;
 };

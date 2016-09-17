@@ -1,17 +1,16 @@
-params ["_logic", "_loadList"];
+if (isServer) then {
+  params ["_logic", "_loadList"];
 
-_module = _logic getVariable "Module";
-_debug = _logic getVariable "Debug";
+  _module = _logic getVariable "Module";
+  _debug = _logic getVariable "Debug";
 
-_reloading = _logic getVariable "Reloading";
-_distance = _logic getVariable "Distance";
-_time = _logic getVariable "Time";
+  _reloading = _logic getVariable "Reloading";
+  _distance = _logic getVariable "Distance";
+  _time = _logic getVariable "Time";
 
-_box = _logic getVariable "Box";
-_reloading = _reloading splitString ",;";
+  _box = _logic getVariable "Box";
+  _reloading = _reloading splitString ",;";
 
-while {true} do
-{
   ["DEBUG", _module, "Check for reload"] spawn EE_Scripts_fnc_debug;
   ["INFORMATION", _module, format["nearestObjects[%1, %2, %3]", _box, _reloading, _distance], _debug] spawn EE_Scripts_fnc_debug;
   _reloaded = false;
@@ -103,9 +102,9 @@ while {true} do
     if (_reloaded) then
     {
       "AmmoBox reloaded" remoteExec ["hint", [0,-2] select isDedicated];
-      sleep 10;
+    }else{
+      "Nothing to reload" remoteExec ["hint", [0,-2] select isDedicated];
     };
   };
-  sleep 60;
 };
 true

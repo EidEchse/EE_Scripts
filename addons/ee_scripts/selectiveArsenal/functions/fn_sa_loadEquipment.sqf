@@ -56,17 +56,17 @@ if (isServer) then {
                 _displayName = getText (_cfg >> "displayName");
                 _image = getText (_cfg >> "picture");
 
-                _title = "<t color='#ffffff' size='1.2' shadowColor='#CCCCCC' align='center'>" + _displayName + "</t><br />";
+                _title = "<t color='#ffffff' size='1.2' align='center'>" + _displayName + "</t><br />";
                 _picture = "<img size='4' image='" + _image + "' align='center'/><br />";
-                _footer = "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='center'>Loaded to Selective Arsenal</t>";
+                _footer = "<t color='#ffffff' size='1.0' align='center'>Loaded to Selective Arsenal</t>";
                (parseText (_title + _picture + _footer)) remoteExec ["hint", [0,-2] select isDedicated];
-               sleep 5;
+               sleep 3;
               } forEach _list;
               "" remoteExec ["hint", [0,-2] select isDedicated];
               sleep 1;
             };
             [_arsenal] call EE_Scripts_fnc_sa_synchronizeArsenal;
-            sleep 5;
+            sleep 3;
           };
         };
       } forEach _objects;

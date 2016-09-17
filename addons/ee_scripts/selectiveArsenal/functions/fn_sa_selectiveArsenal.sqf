@@ -50,6 +50,7 @@ if (isServer) then {
 		_box setVariable["EE_Scripts_is_selectiveArsenal", true, true];
 		EE_Scripts_sa_boxClasses pushBackUnique (_logic getVariable ["BoxClass", "Box_NATO_AmmoVeh_F"]);
 		EE_Scripts_sa_Arsenal pushBackUnique _box;
+		publicVariable "EE_Scripts_sa_boxClasses";
 
 		["AmmoboxInit", [_box, false]] call BIS_fnc_arsenal;
 	  [_box, EE_Scripts_sa_magazines, true] call BIS_fnc_addVirtualMagazineCargo;
