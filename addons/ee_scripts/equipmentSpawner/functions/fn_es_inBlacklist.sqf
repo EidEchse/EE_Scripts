@@ -9,11 +9,11 @@ switch (_type) do
 {
   case "item":
   {
-      _blacklist = EE_Scripts_es_blacklist_item;
+    _blacklist = EE_Scripts_es_blacklist_item;
   };
   case "weapon":
   {
-      _blacklist = EE_Scripts_es_blacklist_weapon;
+    _blacklist = EE_Scripts_es_blacklist_weapon;
   };
   case "backpack":
   {
@@ -25,7 +25,6 @@ private _return = false;
 scopeName "main";
 {
   _blackEqm = _x;
-  switch (_type) do
   {
     ["DEBUG", _module, format["Check: %1", _blackEqm], _debug] spawn EE_Scripts_fnc_debug;
     if (_x == _blackEqm) then

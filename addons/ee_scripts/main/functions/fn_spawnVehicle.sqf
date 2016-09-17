@@ -68,8 +68,7 @@ if (!isNull _vehicle) then
     (_this select 3) remoteExec ["EE_Scripts_fnc_setHome", [0, 2] select isDedicated, _netId];
   };
   _addActionParams = ["Set Home", _serverFunction, _logic, 1.5, false];
-  _netId = (netId _logic) + "addAction" + "Set Home";
-  [_vehicle, _addActionParams] remoteExec ["addAction", [0,-2] select isDedicated, _netId];
+  [_vehicle, _addActionParams] remoteExec ["addAction", [0,-2] select isDedicated, true];
 
   [_logic, _vehicleName, _debug] call EE_Scripts_fnc_spawnVehicle;
   _location = nearestLocation [_position, ""];
