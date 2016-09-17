@@ -1,5 +1,5 @@
 if (isServer) then {
-  params ["_logic", "_unit"];
+  params ["_logic", "_units"];
   _module = _logic getVariable "Module";
   _debug = _logic getVariable "Debug";
 
@@ -9,22 +9,18 @@ if (isServer) then {
   _respawn = _logic getVariable "Respawn";
   _box = _logic getVariable "Box";
   _count = _logic getVariable "Count";
+  _type = _logic getVariable "Type";
 
-  /*if (_gou == "_unit") then {*/
-    _name = name _unit;
+  _name = [];
+  if (_type == "group") then {
+    _name pushBack (name _unit);
     waitUntil ({!alive _unit;});
-  /*}else{
-    waitUntil (
-      {
-        _return = true;
-        {
-          if (alive _x) then {
-              _return = false;
-          };
-        } forEach (units _unit);
-        _return;
-      });
-  };*/
+  }else{
+    _alive = false;
+    {
+      _name pushBack (name _x);
+    } forEach ARRAY;
+  };
 
   _deleteUnits = _logic getVariable ["DeleteUnits", false];
   if (!_deleteUnits) then {

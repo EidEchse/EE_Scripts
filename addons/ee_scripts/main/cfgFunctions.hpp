@@ -5,4 +5,5 @@ class main
 	class debug{};
 	class spawnVehicle{};
 	class setHome{};
+	class getConfig{};
 };
