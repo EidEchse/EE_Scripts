@@ -6,6 +6,8 @@ class reloadingAmmobox: Module_F
 	/*icon = "\ee_scripts\data\iconNuke_ca.paa"; // Map icon. Delete this entry to use the default icon*/
 	category = "EE_Scripts";
 
+	icon = "\ee_scripts\img\IconModule_ammobox.paa";
+
 	// Name of function triggered once conditions are met
 	function = "EE_Scripts_fnc_ra_reloadingAmmobox";
 	// Execution priority, modules with lower number are executed first. 0 is used when the attribute is undefined
