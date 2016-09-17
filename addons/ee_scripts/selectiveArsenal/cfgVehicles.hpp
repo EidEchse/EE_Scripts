@@ -6,6 +6,8 @@ class selectiveArsenal: Module_F
 	/*icon = "\ee_scripts\data\iconNuke_ca.paa"; // Map icon. Delete this entry to use the default icon*/
 	category = "EE_Scripts";
 
+	icon = "\ee_scripts\img\Arsenal.paa";
+
 	// Name of function triggered once conditions are met
 	function = "EE_Scripts_fnc_sa_selectiveArsenal";
 	// Execution priority, modules with lower number are executed first. 0 is used when the attribute is undefined
