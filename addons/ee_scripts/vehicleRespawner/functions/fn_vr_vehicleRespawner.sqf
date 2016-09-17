@@ -19,10 +19,12 @@ if (isServer) then {
 	_logic setVariable ["Init", _init];
 
 	_name = _logic getVariable ["Name", ""];
-	if (_name == "") then {
-		["ERROR", _module, "Vehiclename is unset", _debug] spawn EE_Scripts_fnc_debug;
+	_result = [str _name, configFile >> "CfgVehicles"] call EE_Scripts_fnc_getConfig;
+
+	if (isNil "_result") then {
+		["ERROR", _module, format["No vehilce config found for: %1", _name], _debug] spawn EE_Scripts_fnc_debug;
 	}else{
-		_logic setVariable ["Name", _name];
+		_logic setVariable ["Name", _result];
 
 		_respawn = _logic getVariable ["Respawn", 0];
 		_logic setVariable ["Respawn", _respawn];

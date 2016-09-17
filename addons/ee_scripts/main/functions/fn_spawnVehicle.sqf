@@ -4,12 +4,12 @@ _debug = _logic getVariable "Debug";
 
 _init = _logic getVariable "Init";
 _respawn = _logic getVariable "Respawn";
-_vehicleName = _logic getVariable "Name";
+_cfg = _logic getVariable "Name";
+_vehicleName = configName _cfg;
 
 _vehicle = _logic getVariable "Vehicle";
 
-_cfg = (configfile >> "cfgVehicles" >> _vehicleName);
-["DEBUG", _module, format ["Class %1 config %2", _vehicleName, _cfg], _debug] spawn EE_Scripts_fnc_debug;
+["DEBUG", _module, format ["Class config %2", str _cfg], _debug] spawn EE_Scripts_fnc_debug;
 _displayName = getText (_cfg >> "displayName");
 _image = getText (_cfg >> "picture");
 
@@ -43,7 +43,25 @@ if (!isNil "_vehicle") then
 };
 _position = _logic getVariable ["Home", position _logic];
 _dir = _logic getVariable ["HomeDir", getDir _logic];
-_vehicle = _vehicleName createVehicle _position;
+if (getText (_cfg >> "crew") == "B_UAV_AI") then {
+  _side = getNumber (_cfg >> "side");
+  private "_group";
+  switch (_side) do {
+    case 0: {
+      _vehicle = [_position, _dir, (configName _cfg), east] call BIS_fnc_spawnVehicle;
+    };
+    case 1: {
+      _vehicle = [_position, _dir, (configName _cfg), west] call BIS_fnc_spawnVehicle;
+    };
+    case 2: {
+      _vehicle = [_position, _dir, (configName _cfg), resistance] call BIS_fnc_spawnVehicle;
+    };
+  };
+  _vehicle = _vehicle select 0;
+}else{
+  _vehicle = _vehicleName createVehicle _position;
+};
+
 if (!isNull _vehicle) then
 {
   _vehicle setDir _dir;
