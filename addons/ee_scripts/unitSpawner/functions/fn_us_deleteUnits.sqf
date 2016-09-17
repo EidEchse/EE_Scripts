@@ -5,26 +5,40 @@ if (isServer) then {
   _units = _logic getVariable "Units";
   _skill = _logic getVariable "Skill";
   _curUnits = _box getVariable "CurUnits";
+  _cfgs = _logic getVariable "Cfgs";
+  _type = _logic getVariable "Type";
 
   _logic setVariable ["DeleteUnits", true];
   {
+    _unitArray = _x;
+    {
       deleteVehicle _x;
+    } forEach _unitArray;
   } forEach _curUnits;
 
   _box setVariable ["CurUnits", [], true];
   _box setVariable ["NextRespawn", 0, true];
   _box setVariable ["CurCount", _count, true];
-  _title = "<t color='#ffffff' size='1.2' shadowColor='#CCCCCC' align='center'>BOX INFORMATION</t><br />";
-  _curCount = "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='left'>Available: " + (str _count) + "</t><br />";
-  _skillText = "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='left'>Skill: " + (str _skill) + "</t><br />";
-  _unitsText = "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='center'>Units:</t><br />";
-  _text = _title + _curCount + _skillText + _unitsText;
-  _units = _units splitString " ,;";
+  _title = "<t color='#ffffff' size='1.2' align='center'>BOX INFORMATION</t><br />";
+  _curCount = "<t color='#ffffff' size='1.0' align='left'>Available: " + (str _count) + "/" + (str _count) + "</t><br />";
+  _skillText = "<t color='#ffffff' size='1.0' align='left'>Skill: " + (str _skill) + "</t><br />";
+  _location = nearestLocation [position _box, ""];
+  _locationText = "<t color='#ffffff' size='1.0' align='left'>Location: " + (className _location) + "</t><br />";
+
+  _unitsTitel = "<t color='#ffffff' size='1.0' align='center'>Units:</t><br />";
+  _unitText = "";
   {
-    _text = _text + "<t color='#ffffff' size='1.0' shadowColor='#CCCCCC' align='center'>" + getText (configfile >> "CfgVehicles" >> _x >> "displayName") + "</t><br />";
-  } forEach _units;
+    private "_displayName";
+    if (_type == "group") then {
+      _displayName = getText (_x >> "name");
+    }else{
+      _displayName = getText (_x >> "displayName");
+    };
+    _unitText = _unitText + "<t color='#ffffff' size='1.0' align='center'>" + _displayName + "</t><br />";
+  } forEach _cfgs;
+  _text = _title + _curCount + _skillText + _locationText + _unitsTitel + _unitText;
   (parseText _text) remoteExec ["hint", [0,-2] select isDedicated];
 
-  [_logic] call EE_Scripts_fnc_us_createActions;
+  _logic remoteExec ["EE_Scripts_fnc_us_createActions", [0,-2] select isDedicated, true];
 };
 true

@@ -114,12 +114,10 @@ if (isServer) then {
 		[_logic] call EE_Scripts_fnc_es_fillBox;
 
 		_serverFunction = {
-			_netId = (netId (_this select 3)) + "EE_Scripts_fnc_sa_loadEquipment";
-			(_this select 3) remoteExec ["EE_Scripts_fnc_sa_loadEquipment", [0, 2] select isDedicated, _netId];
+			(_this select 3) remoteExec ["EE_Scripts_fnc_sa_loadEquipment", [0, 2] select isDedicated, true];
 		};
 		_addActionParams = ["Load to Arsenal", _serverFunction, _logic, 1.4, false, false, "", "[_target] call EE_Scripts_fnc_es_con_selectiveArsenalNear", 5];
-		_netId = (netId _logic) + "addAction" + "Load to Arsenal";
-		[_box, _addActionParams] remoteExec ["addAction", [0,-2] select isDedicated, _netId];
+		[_box, _addActionParams] remoteExec ["addAction", [0,-2] select isDedicated, true];
 	};
 };
 true
