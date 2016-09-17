@@ -1,13 +1,12 @@
 if (isServer) then {
   params ["_logic"];
   _vehicle = _logic getVariable "Vehicle";
-  _vehicleName = _logic getVariable "Name";
+  _cfg = _logic getVariable "Name";
 
   if (!isNil "_vehicle") then {
     _logic setVariable ["Home", (position _vehicle)];
     _logic setVariable ["HomeDir", (getDir _vehicle)];
 
-    _cfg = (configfile >> "cfgVehicles" >> _vehicleName);
     _displayName = getText (_cfg >> "displayName");
     _image = getText (_cfg >> "picture");
     _location = nearestLocation [position _vehicle, ""];

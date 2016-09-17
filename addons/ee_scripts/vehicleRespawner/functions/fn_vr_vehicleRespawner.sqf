@@ -21,8 +21,8 @@ if (isServer) then {
 	_name = _logic getVariable ["Name", ""];
 	_result = [str _name, configFile >> "CfgVehicles"] call EE_Scripts_fnc_getConfig;
 
-	if (isNil{_result}) then {
-		["ERROR", _module, "Vehiclename is unset", _debug] spawn EE_Scripts_fnc_debug;
+	if (isNil "_result") then {
+		["ERROR", _module, format["No vehilce config found for: %1", _name], _debug] spawn EE_Scripts_fnc_debug;
 	}else{
 		_logic setVariable ["Name", _result];
 
