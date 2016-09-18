@@ -22,8 +22,8 @@ if (isServer) then {
 	if (isNil "EE_Scripts_es_weapon") then {
 		EE_Scripts_es_weapon = getArray ( configfile >> "EE_Scripts" >> "equipmentSpawner" >> "weapon");
 	};
-	if (isNil "EE_Scripts_Scripts_es_backpack") then {
-		EE_Scripts_Scripts_es_backpack = getArray ( configfile >> "EE_Scripts" >> "equipmentSpawner" >> "backpack");
+	if (isNil "EE_Scripts_es_backpack") then {
+		EE_Scripts_es_backpack = getArray ( configfile >> "EE_Scripts" >> "equipmentSpawner" >> "backpack");
 	};
 
 	_level = _logic getVariable ["Level", 25]; //Level of the box
