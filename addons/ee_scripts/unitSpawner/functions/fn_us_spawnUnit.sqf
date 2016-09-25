@@ -33,7 +33,7 @@ if (isServer) then {
         _unit setUnitRank _rank;
         _units pushBack _unit;
       } forEach _cfgUnits;
-      (hcLeader (group _caller)) hcSetGroup [_group];
+      (leader _caller) hcSetGroup [_group];
     };
   }else{
     _group = group _caller;
