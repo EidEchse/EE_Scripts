@@ -40,26 +40,26 @@ if (isServer) then {
 	{
 	  case "item":
 		{
-	    if (_level > count EE_Scripts_es_item) then
+	    if (_level > (count EE_Scripts_es_item - 1)) then
 			{
 				["WARNING", _module, format ["Box level %1 higher than item config level %2", _level, count EE_Scripts_es_item], _debug] spawn EE_Scripts_fnc_debug;
-				_level = count EE_Scripts_es_item;
+				_level = (count EE_Scripts_es_item - 1);
 			};
 	  };
 	  case "weapon":
 		{
-	    if (_level > count EE_Scripts_es_weapon) then
+	    if (_level > (count EE_Scripts_es_weapon - 1)) then
 			{
 				["WARNING", _module, format ["Box level %1 higher than weapon config level %2", _level, count EE_Scripts_es_weapon], _debug] spawn EE_Scripts_fnc_debug;
-				_level = count EE_Scripts_es_weapon;
+				_level = (count EE_Scripts_es_weapon - 1);
 			};
 	  };
 	  case "backpack":
 		{
-	    if (_level > count EE_Scripts_es_backpack) then
+	    if (_level > (count EE_Scripts_es_backpack - 1)) then
 			{
 				["WARNING", _module, format ["Box level %1 higher than backpack config level %2", _level, count EE_Scripts_es_backpack], _debug] spawn EE_Scripts_fnc_debug;
-				_level = count EE_Scripts_es_backpack;
+				_level = (count EE_Scripts_es_backpack - 1);
 			};
 	  };
 	};
