@@ -17,7 +17,7 @@ class vehicleRespawner: Module_F
 	// 1 for module waiting until all synced triggers are activated
 	isTriggerActivated = 1;
 	// 1 if modules is to be disabled once it's activated (i.e., repeated trigger activation won't work)
-	isDisposable = 1;
+	isDisposable = 0;
 	// // 1 to run init function in Eden Editor as well
 	is3DEN = 0;
 
