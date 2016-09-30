@@ -39,9 +39,9 @@ if (_range == 0) then {
 }else{
   if ((_level + _range - 1) > ((count _cfg)-1)) then
   {
-    _max = (count _cfg)-1;
+    _max = (count _cfg) - 1;
   }else{
-    _max = _level + _range;
+    _max = _level + _range - 1;
   };
 
   if ((_level - _range) < 0) then
