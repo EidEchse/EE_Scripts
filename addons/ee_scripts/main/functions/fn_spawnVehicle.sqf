@@ -58,6 +58,7 @@ if (getText (_cfg >> "crew") == "B_UAV_AI") then {
     };
   };
   _vehicle = _vehicle select 0;
+  createVehicleCrew _vehicle;
 }else{
   _vehicle = _vehicleName createVehicle _position;
 };

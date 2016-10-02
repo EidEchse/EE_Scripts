@@ -25,10 +25,15 @@ if (isServer) then {
     if (!isNil "_group") then {
       _cfgUnits = "true" configClasses _cfg;
       {
-        _unit = _group createUnit [(getText (_x >> "vehicle")), (position _box), [], 0, "FORM"];
+        _rank = getText (_x >> "rank");
+        _cfgPos = getArray (_x >> "position");
+        _boxPos = position _box;
+        _position = [((_cfgPos select 0) + (_boxPos select 0)), ((_cfgPos select 1) + (_boxPos select 1)), ((_cfgPos select 2) + (_boxPos select 2))];
+        _unit = _group createUnit [(getText (_x >> "vehicle")), _position, [], 0, "FORM"];
+        _unit setUnitRank _rank;
         _units pushBack _unit;
       } forEach _cfgUnits;
-      (hcLeader (group _caller)) hcSetGroup [_group];
+      (leader _caller) hcSetGroup [_group];
     };
   }else{
     _group = group _caller;
