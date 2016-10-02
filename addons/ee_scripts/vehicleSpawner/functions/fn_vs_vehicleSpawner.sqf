@@ -55,15 +55,78 @@ if (isServer) then {
 		EE_Scripts_vs_respawn_helicopter = getArray ( configfile >> "EE_Scripts" >> "vehicleSpawner" >> "respawn_helicopter");
 	};
 
-	_type = _logic getVariable ["Type", "vehicle"];
-	_logic setVariable ["Type", _type];
-	["DEBUG", _module, format["Vehicle type: %1", _type], _debug] spawn EE_Scripts_fnc_debug;
 	_level = _logic getVariable ["Level", 25]; //Level of the box
+	if (_level < 0) then
+	{
+		["WARNING", _module, format ["Box level %1 lower than 0", _level], _debug] spawn EE_Scripts_fnc_debug;
+		_level = 0;
+	};
+
+	_type = _logic getVariable ["Type", "vehicle"]; //Type of equipment
+	_logic setVariable ["Type", _type];
+	["DEBUG", _module, format["Box type: %1", _type], _debug] spawn EE_Scripts_fnc_debug;
+	switch (_type) do
+	{
+		case "aa":
+		{
+			if (_level > (count EE_Scripts_vs_aa - 1)) then
+			{
+				["WARNING", _module, format ["Box level %1 higher than item config level %2", _level, count EE_Scripts_vs_aa], _debug] spawn EE_Scripts_fnc_debug;
+				_level = (count EE_Scripts_vs_aa - 1);
+			};
+		};
+		case "vehicle":
+		{
+			if (_level > (count EE_Scripts_vs_respawn_vehicle - 1)) then
+			{
+				["WARNING", _module, format ["Box level %1 higher than item config level %2", _level, count EE_Scripts_vs_respawn_vehicle], _debug] spawn EE_Scripts_fnc_debug;
+				_level = (count EE_Scripts_vs_respawn_vehicle - 1);
+			};
+		};
+		case "artillary":
+		{
+			if (_level > (count EE_Scripts_vs_respawn_artillary - 1)) then
+			{
+				["WARNING", _module, format ["Box level %1 higher than item config level %2", _level, count EE_Scripts_vs_respawn_artillary], _debug] spawn EE_Scripts_fnc_debug;
+				_level = (count EE_Scripts_vs_respawn_artillary - 1);
+			};
+		};
+		case "plane":
+		{
+			if (_level > (count EE_Scripts_vs_respawn_plane - 1)) then
+			{
+				["WARNING", _module, format ["Box level %1 higher than item config level %2", _level, count EE_Scripts_vs_respawn_plane], _debug] spawn EE_Scripts_fnc_debug;
+				_level = (count EE_Scripts_vs_respawn_plane - 1);
+			};
+		};
+		case "boat":
+		{
+			if (_level > (count EE_Scripts_vs_respawn_boat - 1)) then
+			{
+				["WARNING", _module, format ["Box level %1 higher than item config level %2", _level, count EE_Scripts_vs_respawn_boat], _debug] spawn EE_Scripts_fnc_debug;
+				_level = (count EE_Scripts_vs_respawn_boat - 1);
+			};
+		};
+		case "helicopter":
+		{
+			if (_level > (count EE_Scripts_vs_respawn_helicopter - 1)) then
+			{
+				["WARNING", _module, format ["Box level %1 higher than item config level %2", _level, count EE_Scripts_vs_respawn_helicopter], _debug] spawn EE_Scripts_fnc_debug;
+				_level = (count EE_Scripts_vs_respawn_helicopter - 1);
+			};
+		};
+	};
+
 	_logic setVariable ["Level", _level];
-	["DEBUG", _module, format["Vehicle level: %1",_level], _debug] spawn EE_Scripts_fnc_debug;
+	["DEBUG", _module, format["Box level: %1", _level], _debug] spawn EE_Scripts_fnc_debug;
+
 	_range = _logic getVariable ["Range", 5]; //Range for leveled Eqipment selection
+	if ((_level - _range) < 0) then
+	{
+		["WARNING", _module, format["Box range %1 higher than box level %2", _range, _level], _debug] spawn EE_Scripts_fnc_debug;
+	};
 	_logic setVariable ["Range", _range];
-	["DEBUG", _module, format["Vehicle range: %1",_range], _debug] spawn EE_Scripts_fnc_debug;
+	["DEBUG", _module, format["Box range: %1",_range], _debug] spawn EE_Scripts_fnc_debug;
 
 	if (_activated) then
 	{

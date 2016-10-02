@@ -64,20 +64,27 @@ switch _type do
   };
 };
 
+//Calculate the minimum and maximum level vor the equipment selection
 private ["_max", "_min"];
-if ((_level + _range -1) > ((count _cfg)-1)) then
-{
-  _max = (count _cfg)-1;
+if (_range == 0) then {
+  _max = _level;
+  _min = _level;
 }else{
-  _max = _level + _range;
+  if ((_level + _range - 1) > ((count _cfg)-1)) then
+  {
+    _max = (count _cfg) - 1;
+  }else{
+    _max = _level + _range - 1;
+  };
+
+  if ((_level - _range) < 0) then
+  {
+    _min = 0;
+  }else{
+    _min = _level - _range;
+  };
 };
 
-if ((_level - _range) < 0) then
-{
-  _min = 0;
-}else{
-  _min = _level - _range;
-};
 ["DEBUG", _module, format["Min level: %1", _min], _debug] spawn EE_Scripts_fnc_debug;
 ["DEBUG", _module, format["Max level: %1", _max], _debug] spawn EE_Scripts_fnc_debug;
 
@@ -88,7 +95,7 @@ if (count _pool > 0) then
 	_vehicleName = [_logic, _pool] call EE_Scripts_fnc_vs_selectVehicle;
 	["DEBUG", _module, format ["Selected vehicle %1 type %2", _vehicleName, _type], _debug] spawn EE_Scripts_fnc_debug;
 
-	_level = 0;
+	_level = -1;
 	scopeName "main";
 	{
 		_level_array = _x;
